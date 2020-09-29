@@ -91,7 +91,7 @@
 
 %%% BOOK %%%
 \makeatletter
-\@ifclassloaded{book}{}{\renewcommand{\abstractname}{\large\sffamily\bfseries\color{DylanBlue}Abstract}}
+\@ifclassloaded{book}{}{\renewcommand{\abstractname}{\large\sffamily\bfseries\color{DylanBlue}Summary}}
 \makeatother
 
 %% % Fix periods at end of section numbers
@@ -202,7 +202,7 @@
 \newcommand{\pfrac}[2]{\left( \frac{#1}{#2} \right)}  % frac with large paren
 \usepackage{tikz, tikz-cd, pgfplots} 
 \usepgfplotslibrary{fillbetween}
-\usetikzlibrary{arrows.meta,arrows,scopes,patterns,shapes.geometric,angles,quotes,intersections,calc}
+\usetikzlibrary{arrows.meta,arrows,scopes,patterns,shapes.geometric,angles,quotes,intersections,calc,decorations,decorations.pathmorphing}
 \makeatletter
 \tikzset{% https://tex.stackexchange.com/a/142491
   mirror/.code={\pgfutil@in@{--}{#1}\ifpgfutil@in@\tikz@trans@mirror#1\@nil
@@ -1759,24 +1759,24 @@ rightline=false,
 leftline=false]{hypo}{Hypothesis}
 
 %%% Due date
-\usepackage[english]{datetime2}
-\usepackage[level]{fmtcount}
-\usepackage{imakeidx}
+% \usepackage[english]{datetime2}
+% \usepackage[level]{fmtcount}
+% \usepackage{imakeidx}
 
-\makeatletter
-\newrobustcmd{\computedate}[1]{\compute@date#1\@nil}
-\def\compute@date#1-#2\@nil{%
-  \DTMenglishmonthname{#1}\space\ordinalnum{#2}, \the\year{}%
-}
-\makeatother
+% \makeatletter
+% \newrobustcmd{\computedate}[1]{\compute@date#1\@nil}
+% \def\compute@date#1-#2\@nil{%
+%   \DTMenglishmonthname{#1}\space\ordinalnum{#2}, \the\year{}%
+% }
+% \makeatother
 
-\newcommand{\duedate}[1]{
-\ifx&#1&%
-\today
-\else
-Due: \computedate{#1}
-\fi
-}
+% \newcommand{\duedate}[1]{
+% \ifx&#1&%
+% \today
+% \else
+% Due: \computedate{#1}
+% \fi
+% }
 
 \ifdylanhide
 \excludecomment{hint}
@@ -2145,41 +2145,41 @@ Due: \computedate{#1}
 %%% CALC STUFF %%%
 \newcommand{\limx}[1]{\lim_{x\to #1}}
 
-\newcommand{\vocabsec}{\section*{\textcolor{red!50}{Vocabulary}}}
+% \newcommand{\vocabsec}{\section*{\textcolor{red!50}{Vocabulary}}}
 
-\usepackage{makeidx}
-\makeatletter
-\renewenvironment{theindex}
-  {{\vocabsec}\par%
-  \@mkboth{\MakeUppercase\indexname}{\MakeUppercase\indexname}%
-  \parindent\z@
-  \parskip\z@ \@plus .3\p@\relax
-  \let\item\@idxitem
-  \begin{multicols}{3}\footnotesize}
-  {\end{multicols}}
-\makeatother
-\makeindex
+% \usepackage{makeidx}
+% \makeatletter
+% \renewenvironment{theindex}
+%   {{\vocabsec}\par%
+%   \@mkboth{\MakeUppercase\indexname}{\MakeUppercase\indexname}%
+%   \parindent\z@
+%   \parskip\z@ \@plus .3\p@\relax
+%   \let\item\@idxitem
+%   \begin{multicols}{3}\footnotesize}
+%   {\end{multicols}}
+% \makeatother
+% \makeindex
 
-\newenvironment{voc}{ \begin{mdframed}\vocabsec\vspace*{-0.5cm}\begin{multicols*}{2}}{\end{multicols*}\end{mdframed}}
+% \newenvironment{voc}{ \begin{mdframed}\vocabsec\vspace*{-0.5cm}\begin{multicols*}{2}}{\end{multicols*}\end{mdframed}}
 
-\tikzstyle{line} = [draw, color=black, -latex']
+% \tikzstyle{line} = [draw, color=black, -latex']
 
-\usepackage{chronology}
-\usetikzlibrary{decorations.markings}
+% \usepackage{chronology}
+% \usetikzlibrary{decorations.markings}
 
 %%% VOCAB
-\usepackage{makeidx}
-\makeatletter
-\renewenvironment{theindex}
-  {{\section*{\textcolor{DylanHeadX}{Vocabulary}}}\par%
-  \@mkboth{\MakeUppercase\indexname}{\MakeUppercase\indexname}%
-  \parindent\z@
-  \parskip\z@ \@plus .3\p@\relax
-  \let\item\@idxitem
-  \begin{multicols}{3}}
-  {\end{multicols}}
-\makeatother
-\makeindex
+% \usepackage{makeidx}
+% \makeatletter
+% \renewenvironment{theindex}
+%   {{\section*{\textcolor{DylanHeadX}{Vocabulary}}}\par%
+%   \@mkboth{\MakeUppercase\indexname}{\MakeUppercase\indexname}%
+%   \parindent\z@
+%   \parskip\z@ \@plus .3\p@\relax
+%   \let\item\@idxitem
+%   \begin{multicols}{3}}
+%   {\end{multicols}}
+% \makeatother
+% \makeindex
 
 \usepackage{chronology}
 \usetikzlibrary{decorations.markings}
