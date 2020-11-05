@@ -935,17 +935,17 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \newcommand{\minpt}[1]{}
 
 \newcommand{\prob}[3][]{
-\stepcounter{probcnt}
+\stepcounter{Problem}
 {
-{\noindent\notofont\color{\maincolor}\textbf{Problem \theprobcnt\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+{\noindent\notofont\color{\maincolor}\textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
 \vspace{0.2cm}
 }
 }
 
 \newcommand{\req}[3][]{
-\stepcounter{probcnt}
+\stepcounter{Problem}
 {\noindent
-{\notofont\color{\maincolor}\textbf{Problem \theprobcnt\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+{\notofont\color{\maincolor}\textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
 \vspace{0.2cm}
 }
 }
@@ -953,17 +953,17 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \newcommand{\minpt}[1]{\noindent\textsf{Minimum is {\color{\maincolor}\notofont\bfseries[#1\,\probSymb]}. Problems denoted with {\color{\maincolor!50!white}\reqSymb} are required. (They still count towards the point total.)}}
 
 \newcommand{\prob}[3][]{
-\stepcounter{probcnt}
+\stepcounter{Problem}
 {\noindent
-{\notofont\color{\maincolor}\if\relax\detokenize{#1}\else\textbf{\small{[#1\,\probSymb}]} \fi \textbf{Problem \theprobcnt\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+{\notofont\color{\maincolor}\if\relax\detokenize{#1}\else\textbf{\small{[#1\,\probSymb}]} \fi \textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
 \vspace{0.2cm}
 }
 }
 
 \newcommand{\req}[3][]{
-\stepcounter{probcnt}
+\stepcounter{Problem}
 {\noindent
-{\notofont\color{\maincolor!50!white}\if\relax\detokenize{#1}\else\textbf{\small{[#1\,\reqSymb]}} \fi \textbf{Problem \theprobcnt\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+{\notofont\color{\maincolor!50!white}\if\relax\detokenize{#1}\else\textbf{\small{[#1\,\reqSymb]}} \fi \textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
 \vspace{0.2cm}
 }
 }
