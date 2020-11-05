@@ -666,17 +666,24 @@ bottomline=false,
 rightline=false,
 leftline=false]{exercise}[theorem]{Exercise}
 
-\theoremstyle{dylanProblem}
-\newmdtheoremenv[% settings
-nobreak=false,
-innerleftmargin=0pt,
-innerrightmargin=0pt,
-topline=false,
-bottomline=false,
-rightline=false,
-leftline=false]{Problem}[theorem]{Problem}
+% \theoremstyle{dylanProblem}
+% \newmdtheoremenv[% settings
+% nobreak=false,
+% innerleftmargin=0pt,
+% innerrightmargin=0pt,
+% topline=false,
+% bottomline=false,
+% rightline=false,
+% leftline=false]{Problem}[theorem]{Problem}
 
-% \newenvironment{Problem}[1][]{\problem[#1]{\hspace{-0.7cm}}{}}
+\usepackage{environ}
+\NewEnviron{Problem}[1][]{
+\ifx&#1&%
+    \problem{\BODY}
+\else
+    \problem[#1]{\BODY}
+\fi
+}
 
 \theoremstyle{dylaninduct}
 \newmdtheoremenv[% settings
