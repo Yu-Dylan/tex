@@ -414,7 +414,7 @@
   {2pt}%                                     % Space below
   {}%                                     % Body font
   {}%                                     % Indent amount
-  {\color{RedViolet}\sffamily\bfseries}%                            % Theorem head font
+  {\notofont\color{\maincolor}\bfseries}%                            % Theorem head font
   {.}%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%
@@ -666,24 +666,45 @@ bottomline=false,
 rightline=false,
 leftline=false]{exercise}[theorem]{Exercise}
 
-% \theoremstyle{dylanProblem}
-% \newmdtheoremenv[% settings
-% nobreak=false,
-% innerleftmargin=0pt,
-% innerrightmargin=0pt,
-% topline=false,
-% bottomline=false,
-% rightline=false,
-% leftline=false]{Problem}[theorem]{Problem}
+\theoremstyle{dylanProblem}
+\newmdtheoremenv[% settings
+nobreak=false,
+innerleftmargin=0pt,
+innerrightmargin=0pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{Problem}{Problem}
 
-\usepackage{environ}
-\NewEnviron{Problem}[1][]{
-\ifx&#1&%
-    \problem{\BODY}
-\else
-    \problem[#1]{\BODY}
-\fi
-}
+% \makeatletter
+% \newcommand\asycode[2][]{%
+%   \stepcounter{asy}%
+%   \setkeys{ASYkeys}{#1}%
+%   \ifASYattach
+%     \ASYinlinefalse
+%   \fi
+%   \ifx\asydir\empty\else
+%     \def\ASYprefix{\asydir/}%
+%   \fi
+%   \immediate\write\AsyPreStream{%
+%     \noexpand\InputIfFileExists{%
+%       \ASYprefix\noexpand\jobname-\the\c@asy.pre}{}{}%
+%   }
+%   \asy@write@graphic@header
+%   \immediate\write\AsyStream{\detokenize{#2}}% here asy does the writing
+%   \asy@finalise@stream
+%   \asy@input@graphic
+% }
+% \makeatother
+
+% \usepackage{environ}
+% \NewEnviron{Problem}[1][]{
+% \ifx&#1&%
+%     \problem{\BODY}
+% \else
+%     \problem[#1]{\BODY}
+% \fi
+% }
 
 \theoremstyle{dylaninduct}
 \newmdtheoremenv[% settings
@@ -960,7 +981,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 	\ifdylanadipatchasy
 		\usepackage{patch-asy}
 	\else
-		\usepackage[inline]{asymptote}
+		\usepackage{asymptote}
 	\fi
 	\begin{asydef}
 		import olympiad;
