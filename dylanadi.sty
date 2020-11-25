@@ -1240,7 +1240,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 
 \begin{scope}[\maincolor!63,line width=12pt,rounded corners=12pt]
 
-\draw
+\draw[\maincolor!63]
   (aux1) -- coordinate (a) 
   ++(225:5) --
   ++(-45:5.1) coordinate (b);
@@ -1248,12 +1248,12 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
   (aux3) --
   (a) --
   (aux1);
-\draw[opacity=0.6,\maincolor,shorten <= -10pt]
+\draw[opacity=0.6,\secondcolor!50!\maincolor,shorten <= -10pt]
   (b) --
   ++(225:2.2) --
   ++(-45:2.2);
 \end{scope}
-\draw[\maincolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+\draw[\maincolor!70!\secondcolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
   (aux4) --
   ++(225:0.8) --
   ++(-45:0.8);
@@ -1262,13 +1262,13 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
   (aux2) --
   ++(225:3) coordinate[pos=0.45] (c) --
   ++(-45:3.1);
-\draw
+\draw[\secondcolor!80!\maincolor]
   (aux2) --
   (c) --
   ++(135:2.5) --
   ++(45:2.5) --
   ++(-45:2.5) coordinate[pos=0.3] (d);   
-\draw 
+\draw[\secondcolor!65!\maincolor]
   (d) -- +(45:1);
   
 \end{scope}
