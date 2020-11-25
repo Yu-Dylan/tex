@@ -43,6 +43,16 @@
 \newcommand{\changemaincolorhtml}[1]{
     \definecolor{tempcolor}{HTML}{#1}
     \changemaincolor{tempcolor}
+    \changesecondcolor{tempcolor}
+}
+
+\def\secondcolor{BlueViolet} % one color only, no halves and stuff
+\newcommand{\changesecondcolor}[1]{
+    \def\secondcolor{#1}
+}
+\newcommand{\changesecondcolorhtml}[1]{
+    \definecolor{tempcolor2}{HTML}{#1}
+    \changesecondcolor{tempcolor2}
 }
 
 \newif\ifdylanadifancy\dylanadifancytrue
@@ -1247,7 +1257,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
   (aux4) --
   ++(225:0.8) --
   ++(-45:0.8);
-\begin{scope}[\maincolor!70,line width=6pt,rounded corners=8pt]
+\begin{scope}[\secondcolor!70,line width=6pt,rounded corners=8pt]
 \draw[shorten <= -10pt]
   (aux2) --
   ++(225:3) coordinate[pos=0.45] (c) --
