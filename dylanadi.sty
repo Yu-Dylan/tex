@@ -1213,7 +1213,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \usepackage{pagecolor}
 \usepackage{ytableau}
 \usepackage{tikzducks}
-\colorlet{titlepagecolor}{\maincolor}
+% \colorlet{titlepagecolor}{\maincolor}
 \usepackage{multirow}
 \usepackage{skak}
 \usepackage{mdframed}
@@ -1228,7 +1228,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
 \coordinate (aux4) at ([yshift=-150pt]current page.north east);
 
-\begin{scope}[titlepagecolor!63,line width=12pt,rounded corners=12pt]
+\begin{scope}[\maincolor!63,line width=12pt,rounded corners=12pt]
 
 \draw
   (aux1) -- coordinate (a) 
@@ -1238,16 +1238,16 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
   (aux3) --
   (a) --
   (aux1);
-\draw[opacity=0.6,titlepagecolor,shorten <= -10pt]
+\draw[opacity=0.6,\maincolor,shorten <= -10pt]
   (b) --
   ++(225:2.2) --
   ++(-45:2.2);
 \end{scope}
-\draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+\draw[\maincolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
   (aux4) --
   ++(225:0.8) --
   ++(-45:0.8);
-\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+\begin{scope}[\maincolor!70,line width=6pt,rounded corners=8pt]
 \draw[shorten <= -10pt]
   (aux2) --
   ++(225:3) coordinate[pos=0.45] (c) --
