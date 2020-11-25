@@ -36,7 +36,14 @@
   \scaleto{\stackon[1.5pt]{\color{red}$\triangle$}{\tiny\bfseries \color{black}{!}}}{#1}%
 }
 
-\newcommand{\maincolor}{BlueViolet} % one color only, no halves and stuff
+\def\maincolor{BlueViolet} % one color only, no halves and stuff
+\newcommand{\changemaincolor}[1]{
+    \def\maincolor{#1}
+}
+\newcommand{\changemaincolorhtml}[1]{
+    \definecolor{tempcolor}{HTML}{#1}
+    \changemaincolor{tempcolor}
+}
 
 \newif\ifdylanadifancy\dylanadifancytrue
 \newif\ifdylanadihdr\dylanadihdrtrue
