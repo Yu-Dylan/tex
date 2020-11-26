@@ -1,0 +1,1563 @@
+\ProvidesPackage{primeri}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx, pifont}
+
+\usepackage[usestackEOL]{stackengine}
+\usepackage{scalerel}
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{shapepar}
+\usepackage{microtype}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{fontawesome}
+\RequirePackage[skaknew]{skak}
+
+\DeclareRobustCommand{\alegreyafont}{\fontfamily{Alegreya-LF}\selectfont} % defines alegreya
+\DeclareRobustCommand{\notofont}{\fontfamily{NotoSans-TLF}\selectfont}
+\DeclareRobustCommand{\merri}{\fontfamily{MerriweatherSans-OsF}\selectfont}
+
+
+%%fakesection Argument processing
+% Default Arguments
+% We include "primeri" in all of these to make sure
+% that they don't collide with anything in external packages
+\let\oldding\ding% Store old \ding in \oldding
+\renewcommand{\ding}[2][1]{\scalebox{#1}{\oldding{#2}}}
+
+\definecolor{Ylow}{RGB}{248,230,4}
+
+\newcommand\dangersign[1][2ex]{%
+  \renewcommand\stacktype{L}%
+  \scaleto{\stackon[1.5pt]{\color{red}$\triangle$}{\tiny\bfseries \color{black}{!}}}{#1}%
+}
+
+\def\maincolor{BlueViolet} % one color only, no halves and stuff
+\newcommand{\changemaincolor}[1]{
+    \def\maincolor{#1}
+}
+\newcommand{\changemaincolorhtml}[1]{
+    \definecolor{tempcolor}{HTML}{#1}
+    \changemaincolor{tempcolor}
+    \changesecondcolor{tempcolor}
+}
+
+\def\secondcolor{BlueViolet} % one color only, no halves and stuff
+\newcommand{\changesecondcolor}[1]{
+    \def\secondcolor{#1}
+}
+\newcommand{\changesecondcolorhtml}[1]{
+    \definecolor{tempcolor2}{HTML}{#1}
+    \changesecondcolor{tempcolor2}
+}
+
+\changemaincolorhtml{E14B96}
+\changesecondcolorhtml{87CEEB}
+
+\newif\ifprimerifancy\primerifancytrue
+\newif\ifprimerihdr\primerihdrtrue
+\newif\ifprimerihref\primerihreftrue
+\newif\ifprimerisetup\primerisetuptrue
+\newif\ifprimerithm\primerithmtrue
+\newif\ifprimerisecthm\primerisecthmfalse
+\newif\ifprimeriht\primerihtfalse
+\newif\ifprimeripkg\primeripkgtrue
+\newif\ifprimeripdf\primeripdftrue
+\newif\ifprimeriauthor\primeriauthortrue
+\newif\ifprimerichinese\primerichinesefalse
+\newif\ifprimerimdthm\primerimdthmfalse
+\newif\ifprimeridiagrams\primeridiagramsfalse
+\newif\ifprimeripatchasy\primeripatchasyfalse
+\newif\ifprimerihints\primerihintsfalse
+\newif\ifprimeriasy\primeriasytrue
+\newif\ifprimericolorsec\primericolorsecfalse
+\newif\ifprimerititlemark\primerititlemarktrue
+\newif\ifprimerinopts\primerinoptsfalse
+
+%Receive Arguments
+\DeclareOption{chinese}{\primerihreffalse\primerichinesetrue} % Chinese support
+% allow href to override this one
+
+\DeclareOption{sleek}{\primerisecthmtrue\primerimdthmtrue\primericolorsectrue} % long docs
+\DeclareOption{nopts}{\primerinoptstrue}
+
+\DeclareOption{fancy}{\primerifancytrue}
+\DeclareOption{nofancy}{\primerifancyfalse}
+\DeclareOption{hdr}{\primerihdrtrue}
+\DeclareOption{nohdr}{\primerihdrfalse}
+\DeclareOption{href}{\primerihreftrue}
+\DeclareOption{nohref}{\primerihreffalse}
+
+\DeclareOption{nosetup}{\primerisetupfalse}
+\DeclareOption{thm}{\primerithmtrue}
+\DeclareOption{nothm}{\primerithmfalse}
+\DeclareOption{secthm}{\primerisecthmtrue}
+\DeclareOption{nosecthm}{\primerisecthmfalse}
+
+\DeclareOption{ht}{\primerihttrue}
+\DeclareOption{nopdf}{\primeripdffalse}
+\DeclareOption{nopkg}{\primeripkgfalse}
+\DeclareOption{noauthor}{\primeriauthorfalse}
+\DeclareOption{titlemark}{\primerititlemarktrue} % Sets title in ohead, not \rightmark
+\DeclareOption{sectionmark}{\primerititlemarkfalse} % Uses \rightmark not title in ohead
+
+\DeclareOption{mdthm}{\primerimdthmtrue}
+\DeclareOption{nomdthm}{\primerimdthmfalse}
+\DeclareOption{diagrams}{\primeridiagramstrue}
+\DeclareOption{nodiagrams}{\primeridiagramsfalse}
+\DeclareOption{colorsec}{\primericolorsectrue}
+\DeclareOption{nocolorsec}{\primericolorsecfalse}
+
+\DeclareOption{patchasy}{\primeripatchasytrue}
+\DeclareOption{noasy}{\primeriasyfalse}
+
+\DeclareOption{hints}{\primerihintstrue}
+
+\ProcessOptions\relax
+
+% if packages not loaded, turn off mdthm and asy
+\ifprimeripkg\else\primerimdthmfalse\fi
+\ifprimeripkg\else\primeriasyfalse\fi
+
+% If no setup, turn off theorems
+\ifprimerisetup\else\primerithmfalse\fi
+
+%%fakesection Some macros
+%Small commands
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\mailto}[1]{\href{mailto:#1}{\texttt{#1}}}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\SX}{\mathcal{X}}
+\newcommand{\SW}{\mathcal{W}}
+%\renewcommand{\iff}{\Leftrightarrow}
+%\renewcommand{\implies}{\Rightarrow}
+\definecolor{green1}{RGB}{52, 252, 52}
+\definecolor{green2}{RGB}{88,222,44}
+\definecolor{SkyBlue2}{RGB}{70,130,180}
+\definecolor{Ultra}{RGB}{18,10,143}
+
+
+\newcommand{\vocab}[1]{\textsf{\textbf{\textsl{\color{primeripink!40!red} #1}}}}
+\providecommand{\alert}{\vocab}
+\providecommand{\half}{\frac{1}{2}}
+\newcommand{\catname}{\mathsf}
+\newcommand{\hrulebar}{
+  \par\hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
+  \par\nointerlineskip \vspace{\baselineskip}
+}
+
+%For use in author command
+\newcommand{\plusemail}[1]{\\ \normalfont \texttt{\mailto{#1}}}
+
+%More commands and math operators
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\argmax}{arg max}
+
+%Convenient Environments
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
+\newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
+
+%Inequalities
+\newcommand{\cycsum}{\sum_{\mathrm{cyc}}}
+\newcommand{\symsum}{\sum_{\mathrm{sym}}}
+\newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
+\newcommand{\symprod}{\prod_{\mathrm{sym}}}
+\newcommand{\peq}{\preceq}
+\newcommand{\seq}{\succeq}
+\newcommand{\pe}{\prec}
+\newcommand{\se}{\succ}
+% The sets of mathbb
+\newcommand{\BB}{\mathbb B}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\DD}{\mathbb D}
+\newcommand{\EE}{\mathbb E}
+\renewcommand{\FF}{\mathbb F}
+\newcommand{\GG}{\mathbb G}
+\newcommand{\HH}{\mathbb H}
+\newcommand{\II}{\mathbb I}
+\newcommand{\JJ}{\mathbb J}
+\newcommand{\KK}{\mathbb K}
+\newcommand{\LL}{\mathbb L}
+\newcommand{\MM}{\mathbb M}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\charin}{\text{ char }}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL} % General linear group
+\DeclareMathOperator{\SL}{SL} % Special linear group
+
+%From Kiran Kedlaya's "Geometry Unbound"
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\dang}{\measuredangle} %% Directed angle
+\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\wideparen{#1}}
+
+%From M275 "Topology" at SJSU
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\taking}[1]{\xrightarrow{#1}}
+\newcommand{\inv}{^{-1}}
+
+%From M170 "Introduction to Graph Theory" at SJSU
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+
+%From the USAMO .tex files
+\newcommand{\ts}{\textsuperscript}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+
+% From Math 55 and Math 145 at Harvard
+\newenvironment{subproof}[1][Proof]{%
+\begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
+{\end{proof}}
+
+%\newcommand{\liff}{\leftrightarrow}
+%\newcommand{\lthen}{\rightarrow}
+%\newcommand{\opname}{\operatorname}
+%\newcommand{\surjto}{\twoheadrightarrow}
+%\newcommand{\injto}{\hookrightarrow}
+%\newcommand{\On}{\mathrm{On}} % ordinals
+\DeclareMathOperator{\img}{im} % Image
+\DeclareMathOperator{\Img}{Im} % Image
+\DeclareMathOperator{\coker}{coker} % Cokernel
+\DeclareMathOperator{\Coker}{Coker} % Cokernel
+\DeclareMathOperator{\Ker}{Ker} % Kernel
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Spec}{Spec} % spectrum
+\DeclareMathOperator{\Tr}{Tr} % trace
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\ext}{ext} % extension
+\DeclareMathOperator{\pred}{pred} % predecessor
+\DeclareMathOperator{\dom}{dom} % domain
+\DeclareMathOperator{\ran}{ran} % range
+\DeclareMathOperator{\Hom}{Hom} % homomorphism
+\DeclareMathOperator{\Mor}{Mor} % morphisms
+\DeclareMathOperator{\End}{End} % endomorphism
+
+
+\definecolor{RusPurple}{RGB}{029, 002, 053}
+% Things Lie
+% \newcommand{\kb}{\mathfrak b}
+% \newcommand{\kg}{\mathfrak g}
+% \newcommand{\kh}{\mathfrak h}
+% \newcommand{\kn}{\mathfrak n}
+% \newcommand{\ku}{\mathfrak u}
+% \newcommand{\kz}{\mathfrak z}
+% \DeclareMathOperator{\Ext}{Ext} % Ext functor
+% \DeclareMathOperator{\Tor}{Tor} % Tor functor
+% \newcommand{\gl}{\opname{\mathfrak{gl}}} % frak gl group
+% \renewcommand{\sl}{\opname{\mathfrak{sl}}} % frak sl group chktex 6
+
+% A few mathcal
+ \newcommand{\SA}{\mathcal A}
+ \newcommand{\SB}{\mathcal B}
+ \newcommand{\SC}{\mathcal C}
+ \newcommand{\SD}{\mathcal D}
+ \newcommand{\SF}{\mathcal F}
+ \newcommand{\SG}{\mathcal G}
+ \newcommand{\SH}{\mathcal H}
+ \newcommand{\OO}{\mathcal O}
+ \newcommand{\SM}{\mathcal{M}}
+% \newcommand{\SCA}{\mathscr A}
+% \newcommand{\SCB}{\mathscr B}
+% \newcommand{\SCC}{\mathscr C}
+% \newcommand{\SCD}{\mathscr D}
+% \newcommand{\SCE}{\mathscr E}
+% \newcommand{\SCF}{\mathscr F}
+% \newcommand{\SCG}{\mathscr G}
+% \newcommand{\SCH}{\mathscr H}
+
+% Mathfrak primes
+% \newcommand{\km}{\mathfrak m}
+% \newcommand{\kp}{\mathfrak p}
+% \newcommand{\kq}{\mathfrak q}
+
+%% Napkin commands
+% \newcommand{\prototype}[1]{
+%	\emph{{\color{red} Prototypical example for this section:} #1} \par\medskip
+% }
+
+\newcommand{\paren}[1]{\left( #1 \right)}
+
+\usepackage{thmtools}
+
+\RequirePackage{xcolor}
+
+\definecolor{darkmidnightblue}{rgb}{0.0, 0.2, 0.4}
+\definecolor{sangria}{rgb}{0.57, 0.0, 0.04}
+
+% \colorlet{LightRubineRed}{RubineRed!70!}
+\definecolor{oucrimsonred}{rgb}{0.6, 0.0, 0.0} % syllabus section
+\definecolor{darkred}{rgb}{0.9, 0.00, 0.0}
+
+\definecolor{dennispurple}{RGB}{45,0,90} % dark purple
+\definecolor{lightpurple}{RGB}{230,230,250}
+
+\definecolor{thmblue}{rgb}{0.88, 0.95, 0.98}
+\definecolor{darkblue}{RGB}{36,57,108}
+
+\definecolor{thmgreen}{RGB}{207,241,208}
+\definecolor{darkgreen}{RGB}{30,70,30}
+
+\definecolor{thmred}{RGB}{240, 200, 200}
+\definecolor{labelred}{RGB}{120, 30, 20}
+\definecolor{importantred}{RGB}{100,15,15}
+
+\definecolor{thmyellow}{HTML}{faf5cd}
+\definecolor{labelyellow}{HTML}{999400}
+
+\definecolor{proofbrown}{RGB}{100,40,40}
+\definecolor{titlered}{rgb}{1.0, 0.0, 0.0}
+
+\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
+
+% theorem colors
+
+\definecolor{thmblue}{rgb}{0.88, 0.95, 0.98}
+\definecolor{darkblue}{RGB}{36,57,108}
+\definecolor{wildblueyonder}{rgb}{0.64, 0.68, 0.82}
+
+\definecolor{thmgreen}{RGB}{207,241,208}
+\definecolor{darkgreen}{RGB}{30,70,30}
+
+\definecolor{thmred}{RGB}{240, 200, 200}
+\definecolor{darkred}{RGB}{120, 30, 20}
+
+\definecolor{proofbrown}{RGB}{100,40,40}
+\definecolor{aqua}{rgb}{0,1,1}
+
+\definecolor{primeripink}{HTML}{F56866}
+
+\newtheoremstyle{dylantheo}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{darkblue}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylantheononum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{darkblue}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylandef}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{primeripink}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\footnotesize{\thmnote{#3}}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanexam}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{ForestGreen}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanmoral}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{aqua!95!black}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanprob}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{RoyalPurple}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanfact}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{BurntOrange}\sffamily\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{dylanexercise}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\small}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{NavyBlue}\sffamily\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%
+  
+\newtheoremstyle{dylanProblem}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\notofont\color{\maincolor}\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%
+  
+\newtheoremstyle{dylanwalk}%                % Name
+  {}%                                     % Space above
+  {}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{PineGreen}\sffamily\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  {1.5mm}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}}%
+  
+\newtheoremstyle{dylaninduct}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{Cyan!50!CornflowerBlue}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylancase}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{Magenta!50!CornflowerBlue}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanremark}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\small}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{black}\sffamily\itshape}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanmini}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{black}\sffamily\bfseries}%                            % Theorem head font
+  {}%                                    % Punctuation after theorem head
+  {\newline}%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+
+\RequirePackage{mdframed}
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbuselibrary{breakable}
+\tcbuselibrary{theorems}
+
+\ifprimerisecthm
+\theoremstyle{dylantheo}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{theorem}{Theorem}[section]
+\else
+\theoremstyle{dylantheo}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{theorem}{Theorem}
+\fi
+
+\theoremstyle{dylantheo}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{lemma}[theorem]{Lemma}
+
+\theoremstyle{dylantheononum}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{lemma*}{Lemma}
+
+\theoremstyle{dylantheo}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{corollary}[theorem]{Corollary}
+
+\theoremstyle{dylantheo}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{postulate}[theorem]{Postulate}
+
+\theoremstyle{dylantheo}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{prop}[theorem]{Proposition}
+
+\theoremstyle{dylantheo}
+\newmdtheoremenv[% settings
+backgroundcolor=wildblueyonder!30!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=darkblue,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{law}[theorem]{Law}
+
+\theoremstyle{dylandef}
+\newmdtheoremenv[% settings
+backgroundcolor=primeripink!20!white,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=primeripink,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{defn}[theorem]{Definition}
+
+\theoremstyle{dylanexam}
+\newmdtheoremenv[% settings
+backgroundcolor=thmgreen!50!white,
+linecolor=ForestGreen,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{example}[theorem]{Example}
+
+\theoremstyle{dylanmoral} 
+\newmdtheoremenv[% settings
+backgroundcolor=aqua!10,
+linecolor=aqua!95!black,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{moral}[theorem]{Moral}
+
+\theoremstyle{dylanprob} 
+\newmdtheoremenv[% settings
+backgroundcolor=BlueViolet!10!white,
+linecolor=RoyalPurple,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{problem}[theorem]{Problem}
+
+\theoremstyle{dylanfact}
+\newmdtheoremenv[% settings
+backgroundcolor=Dandelion!15,
+linecolor=BurntOrange,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{fact}[theorem]{Fact}
+
+\theoremstyle{dylanexercise}
+\newmdtheoremenv[% settings
+nobreak=false,
+innerleftmargin=0pt,
+innerrightmargin=0pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{exercise}[theorem]{Exercise}
+
+\theoremstyle{dylanProblem}
+\newmdtheoremenv[% settings
+nobreak=false,
+innerleftmargin=0pt,
+innerrightmargin=0pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{Problem}{Problem}
+
+% \makeatletter
+% \newcommand\asycode[2][]{%
+%   \stepcounter{asy}%
+%   \setkeys{ASYkeys}{#1}%
+%   \ifASYattach
+%     \ASYinlinefalse
+%   \fi
+%   \ifx\asydir\empty\else
+%     \def\ASYprefix{\asydir/}%
+%   \fi
+%   \immediate\write\AsyPreStream{%
+%     \noexpand\InputIfFileExists{%
+%       \ASYprefix\noexpand\jobname-\the\c@asy.pre}{}{}%
+%   }
+%   \asy@write@graphic@header
+%   \immediate\write\AsyStream{\detokenize{#2}}% here asy does the writing
+%   \asy@finalise@stream
+%   \asy@input@graphic
+% }
+% \makeatother
+
+% \usepackage{environ}
+% \NewEnviron{Problem}[1][]{
+% \ifx&#1&%
+%     \problem{\BODY}
+% \else
+%     \problem[#1]{\BODY}
+% \fi
+% }
+
+\theoremstyle{dylaninduct}
+\newmdtheoremenv[% settings
+backgroundcolor=SkyBlue!15,
+linecolor=Cyan!50!CornflowerBlue,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{basecase}{Base Case}
+
+\theoremstyle{dylaninduct}
+\newmdtheoremenv[% settings
+backgroundcolor=SkyBlue!15,
+linecolor=Cyan!50!CornflowerBlue,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{indstep}{Inductive Step}
+
+\theoremstyle{dylancase}
+\newmdtheoremenv[% settings
+backgroundcolor=Magenta!15,
+linecolor=Magenta!50!CornflowerBlue,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{case}{Case}
+
+\theoremstyle{dylanremark}
+\newmdtheoremenv[% settings
+backgroundcolor=black!5,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=black,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{remark}[theorem]{Remark}
+
+\theoremstyle{dylanremark}
+\newmdtheoremenv[% settings
+backgroundcolor=Black!5,
+linecolor=Black,
+linewidth=0.3mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=true,
+bottomline=true,
+rightline=true,
+leftline=true]{solution}[theorem]{Solution}
+
+\newenvironment{exercisebox}{\begin{mdframed}[backgroundcolor=MidnightBlue!10,linecolor=NavyBlue,linewidth=1mm,topline=false,bottomline=false,leftline=true,rightline=false,
+    innertopmargin=3pt,
+    innerbottommargin=2pt,
+    innerrightmargin=5pt,
+    innerleftmargin=5pt]}{\end{mdframed}}
+    
+% \newenvironment{problembox}{\begin{mdframed}[backgroundcolor=WildStrawberry!10,linecolor=RedViolet,linewidth=0.3mm,topline=true,bottomline=true,leftline=true,rightline=true,
+%     innertopmargin=3pt,
+%     innerbottommargin=2pt,
+%     innerrightmargin=5pt,
+%     innerleftmargin=5pt]}{\end{mdframed}}
+
+\newenvironment{problembox}{}{}
+    
+\theoremstyle{dylanwalk}
+
+%%added walk for walkthroughs 
+\newtheorem*{walk}{Walkthrough} % always use the enumerate environment during walkthroughs
+
+% \def\walk{\noindent {\color{PineGreen}\sffamily\bfseries Walkthrough. }\hspace*{2mm}}
+
+\newenvironment{boxpar}[1][]{%
+\begin{mdframed}[nobreak=false]\vspace*{-0.5cm}\paragraph{\color{\maincolor}\sffamily #1}
+}{\end{mdframed}}
+
+\newenvironment{keywords}{\begin{abstract} \sffamily\small \textbf{Keywords:}}{\end{abstract}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Theorem
+\newcounter{theo}[section] \setcounter{theo}{0}
+\renewcommand{\thetheo}{\thetheorem}
+\newenvironment{theo}[1][]{%
+\refstepcounter{theorem}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut \sffamily \color{blue!70!black} Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut \sffamily \color{blue!70!black} Theorem~\thetheo~(#1)};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Example
+\newcounter{exam}[section] \setcounter{exam}{0}
+\renewcommand{\theexam}{\thetheorem}
+\newenvironment{exam}[1][]{%
+\refstepcounter{theorem}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut \sffamily \color{ForestGreen!70!black} Example~\theexam};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut \sffamily \color{ForestGreen!70!black} Example~\theexam~(#1)};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=green!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definition
+\newcounter{defi}[section]\setcounter{defi}{0}
+\renewcommand{\thedefi}{\thetheorem}
+\newenvironment{defi}[1][]{%
+\refstepcounter{theorem}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut \sffamily \color{red!70!black} Definition~\thedefi};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut \sffamily \color{red!70!black} Definition~\thedefi~(#1)};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=red!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+
+%%%%%%%
+%PROBLEMS%
+%%%%%%%
+
+\RequirePackage{adjustbox} % needs adjustbox
+
+\newcommand{\pawnB}[1][1.3ex]{%
+\adjustbox{Trim=4.3pt 2.6pt 4.3pt 0pt,width=#1,raise=-0.15ex,margin=0.1ex 0ex 0.1ex 0ex}{\BlackPawnOnWhite}%
+}%
+\newcommand{\rookB}[1][1.58ex]{%
+\adjustbox{Trim=3.2pt 2.2pt 3.2pt 0pt,width=#1,raise=-0.2ex,margin=0.1ex 0ex 0.1ex 0ex}{\BlackRookOnWhite}%
+}%
+\newcommand{\knightB}[1][1.85ex]{%
+\adjustbox{Trim=2.3pt 2.35pt 2.5pt 0pt,width=#1,raise=-0.03ex,margin=0.14ex 0ex 0.14ex 0ex}{\BlackKnightOnWhite}%
+}%
+\newcommand{\bishopB}[1][1.79ex]{%
+\adjustbox{Trim=2.3pt 2pt 2.3pt 0pt,width=#1,raise=-0.12ex,margin=0.1ex 0ex 0.1ex 0ex}{\BlackBishopOnWhite}%
+}%
+\newcommand{\queenB}[1][2.05ex]{%
+\adjustbox{Trim=1.2pt 2.2pt 1.2pt 0pt,width=#1,raise=-0.08ex,margin=0.1ex 0ex 0.1ex 0ex}{\BlackQueenOnWhite}%
+}%
+\newcommand{\kingB}[1][1.95ex]{%
+\adjustbox{Trim=2pt 2pt 2pt 0pt,width=#1,raise=-0.06ex,margin=0.13ex 0ex 0.13ex 0ex}{\BlackKingOnWhite}%
+}%
+
+% convenience macros
+
+\newcommand{\probSymb}{\pawnB}
+\newcommand{\reqSymb}{\rookB}
+
+% page setup
+
+\newcommand{\problems}{\pagebreak\section{Problems}}
+
+\newcommand{\psetquote}[2] % BE CAREFUL WITH THIS. must be DIRECTLY after minpt
+{
+\begin{flushright}
+\begin{tikzpicture}
+\draw (0,0) node [right,text width=8.75cm]{
+\begin{mdframed}[linecolor=\maincolor!90,leftline=true,rightline=false,bottomline=false,topline=false,linewidth=3pt,backgroundcolor=\maincolor!5]
+{\sffamily``#1''}
+
+\vspace{1mm}
+
+\hfill\color{\maincolor!70!black}\textit{#2}
+\end{mdframed}
+};
+
+\end{tikzpicture}
+\end{flushright}
+}
+
+% actual problems
+
+\newcounter{probcnt}
+
+\ifprimerinopts
+\newcommand{\minpt}[1]{}
+
+\newcommand{\prob}[3][]{
+\stepcounter{Problem}
+{
+{\noindent\notofont\color{\maincolor}\textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+\vspace{0.2cm}
+}
+}
+
+\newcommand{\req}[3][]{
+\stepcounter{Problem}
+{\noindent
+{\notofont\color{\maincolor}\textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+\vspace{0.2cm}
+}
+}
+\else
+\newcommand{\minpt}[1]{\noindent\textsf{Minimum is {\color{\maincolor}\notofont\bfseries[#1\,\probSymb]}. Problems denoted with {\color{\maincolor!50!white}\reqSymb} are required. (They still count towards the point total.)}}
+
+\newcommand{\prob}[3][]{
+\stepcounter{Problem}
+{\noindent
+{\notofont\color{\maincolor}\if\relax\detokenize{#1}\else\textbf{\small{[#1\,\probSymb}]} \fi \textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+\vspace{0.2cm}
+}
+}
+
+\newcommand{\req}[3][]{
+\stepcounter{Problem}
+{\noindent
+{\notofont\color{\maincolor!50!white}\if\relax\detokenize{#1}\else\textbf{\small{[#1\,\reqSymb]}} \fi \textbf{Problem \theProblem\if\relax\detokenize{#2}\else\hspace{3pt}(#2)\fi.}}{\hspace{3pt}#3}
+\vspace{0.2cm}
+}
+}
+\fi
+
+\renewcommand{\problem}[2][]{
+\prob{#1}{#2}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%fakesection Asymptote setup
+\ifprimeriasy
+	\ifprimeripatchasy
+		\usepackage{patch-asy}
+	\else
+		\usepackage{asymptote}
+	\fi
+	\begin{asydef}
+		import olympiad;
+		import cse5;
+		import geometry;
+		pointpen = black;
+		pathpen = black;
+		pathfontpen = black;
+		anglepen = black;
+		anglefontpen = black;
+		pointfontsize = 10;
+		defaultpen(fontsize(10pt));
+		size(8cm); // set a reasonable default
+		usepackage("amsmath");
+		usepackage("amssymb");
+		settings.tex="latex";
+		settings.outformat="pdf";
+	\end{asydef}
+\fi
+\ifprimerithm
+	\usepackage{amsthm}
+\fi
+
+%%fakesection BEGIN MAIN SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifprimerisetup
+	%%fakesection Set up author and date
+	% \ifprimeriauthor
+	%	\AtBeginDocument {%
+	%		\author{Dylan Yu}
+	%		\date{\today}
+	%	}
+	% \fi
+	%%fakesection Hyperref
+	\ifprimeripkg
+		\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+		\usepackage{xcolor}
+		\ifprimerihref
+			\usepackage[colorlinks=true]{hyperref}
+			\hypersetup{urlcolor=\maincolor,linkcolor=\secondcolor,citecolor=SkyBlue2}
+		\fi
+		\usepackage[nameinlink]{cleveref}
+	\fi
+
+\definecolor{Purple06}{RGB}{029, 002, 053}
+\definecolor{Purple05}{RGB}{038, 008, 065}
+\definecolor{Purple04}{RGB}{048, 016, 078}
+\definecolor{Purple03}{RGB}{056, 023, 090}
+\definecolor{Purple02}{RGB}{064, 031, 104}
+\definecolor{Purple01}{RGB}{072, 036, 118}
+\definecolor{Violet001}{RGB}{120,100,163}
+		
+\fi
+
+
+	\ifprimericolorsec
+		\@ifundefined{KOMAClassName}{}{
+			\@ifundefined{chapter}{}{
+				 \addtokomafont{partprefix}{\rmfamily}
+				\renewcommand*{\partformat}{\color{\maincolor}
+					\scalebox{2.5}{\thepart}\enlargethispage{2em}}
+				\addtokomafont{chapterprefix}{\raggedleft}
+				\RedeclareSectionCommand[beforeskip=0.4em]{chapter}
+				\renewcommand*{\chapterformat}{\mbox{%
+					\scalebox{1.5}{\chapappifchapterprefix{\nobreakspace}}%
+					\scalebox{2.72}{\color{\maincolor}\thechapter}\enskip}}
+			}
+	        \usepackage[Symbol]{upgreek}
+	        \usepackage{adjustbox}
+
+            \newcommand\ab[1]{\adjustbox{
+            padding=0ex 0ex 0ex 0ex,
+            margin=-.5ex -.5ex -.5ex -.5ex, 
+            valign=M, 
+            cfbox=blue!50!black!50 2pt, 
+            margin=-.7ex -1ex -1ex -.7ex,
+            cfbox=blue!30!black!70 2.5pt, 
+            bgcolor=cyan!10!white,
+            margin=0ex .5ex 0ex .5ex,
+            }{#1}}
+            
+            
+            \newcommand\bb[1]{\adjustbox{
+            padding=0ex 0ex 0ex 0ex,
+            margin=-.5ex -.5ex -.5ex -.5ex, 
+            valign=M, 
+            cfbox=blue!50!black!50 2pt, 
+            margin=-.7ex -1ex -1ex -.7ex,
+            cfbox=blue!30!black!70 2.5pt, 
+            bgcolor=blue!20!black!60,
+            margin=0ex .5ex 0ex .5ex,
+            }{#1}}
+            
+            
+            
+            \newcommand\kb[1]{
+            \ab{
+            \begin{minipage}[c][1em][c]{1em}
+            \centering#1
+            \end{minipage}
+            }}
+            
+            
+            \newcommand\calculator[1]{
+            \raisebox{.5ex}{\resizebox{#1}{!}{
+            \fboxrule=1.5pt
+            \bb{
+            \sffamily\bfseries
+            \begin{tabular}{l@{}l@{}l@{}l@{~}l}
+            \vspace{-.3cm}\\
+            \multicolumn{3}{l}{\bb{\fcolorbox{black!40!green!60}{black!30!green!30}{\Large ~~~~0.73122}}} & & \kb{\scriptsize ON} \\
+            \vspace{-.4cm}\\
+            \kb{1} & \kb{2} & \kb{3} & & \kb{+} \\
+            \kb{4} & \kb{5} & \kb{6} & & \kb{--}  \\
+            \kb{7} & \kb{8} & \kb{9} & & \kb{=}  \\
+            \end{tabular}
+            }}}}
+            
+            
+            \newcommand\calicon[1]{
+            \raisebox{.5ex}{\resizebox{#1}{!}{
+            \fboxrule=1.5pt
+            
+            \bb{
+            \sffamily\bfseries
+            \begin{tabular}{l@{}l@{}l@{}l@{~}l}
+            \vspace{-.3cm}\\
+            \multicolumn{3}{l}{\bb{\fcolorbox{black!40!green!60}{black!30!green!30}{\Large ~~~~~}}} & & \kb{\scriptsize } \\
+            \vspace{-.4cm}\\
+            \kb{} & \kb{} & \kb{} & & \kb{} \\
+            \kb{} & \kb{} & \kb{} & & \kb{}  \\
+            \kb{} & \kb{} & \kb{} & & \kb{}  \\
+            \end{tabular}
+            }}}}
+	        \usepackage{stackengine}
+			\newcommand{\sectionsymbol}{\calicon{1em}} % \stackanchor{$\uppi$}{\calculator}
+			
+			\renewcommand*{\sectionformat}%
+				{\color{\maincolor}\sectionsymbol\thesection\enskip}
+			\renewcommand*{\subsectionformat}%
+				{\color{\maincolor}\sectionsymbol\thesubsection\enskip}
+			\renewcommand*{\subsubsectionformat}%
+				{\color{\maincolor}\sectionsymbol\thesubsubsection\enskip}
+			\KOMAoptions{numbers=noenddot}
+			\usepackage[tocindentauto]{tocstyle}
+			\usetocstyle{KOMAlike}
+		}
+	\fi
+
+
+	%%fakesection Loads a bunch of useful packages (but allow disabling)
+	\ifprimeripkg
+		\IfFileExists{von.sty}{\usepackage{von}}{}
+		\usepackage{listings}
+		\usepackage{mathrsfs}
+		\usepackage{textcomp}
+		\lstset{basicstyle=\footnotesize\ttfamily,
+			numbers=left,
+			numbersep=5pt,
+			numberstyle=\tiny,
+			keywordstyle=\bfseries,
+			% title=\lstname,
+			showstringspaces=false,
+			tabsize=4,
+			frame=single,
+			keywordstyle=\bfseries\color{blue},
+			commentstyle=\color{green!70!black},
+			identifierstyle=\color{green!20!black},
+			stringstyle=\color{orange},
+			breaklines=true,
+			breakatwhitespace=true,
+			frame=none
+		}
+		\usepackage[shortlabels]{enumitem}
+		% a list I like for walkthrough's --- Drew-style parts
+		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
+		\usepackage{textcomp}
+		\usepackage{multirow}
+		% Tiny tiny optimizations:
+		\usepackage{mathtools}
+		\usepackage{microtype}
+	\fi
+
+	%%fakesection \maketitle configuration
+	\@ifundefined{KOMAClassName}%
+		{} % do nothing outside KOMA class
+		{% If KOMA exists. . .
+		\addtokomafont{subtitle}{\Large}
+		\setkomafont{author}{\Large\scshape}
+		\setkomafont{date}{\Large\normalsize}
+		}
+	\providecommand{\thetitle}{\@title}
+	\providecommand{\theauthor}{\@author}
+	\providecommand{\thedate}{\@date}
+	
+	\date{\href{https://www.primeri.org/}{primeri.org}} % DONT CHANGE 
+	
+	\RequirePackage{etoolbox} % used for patchcmd
+
+    \patchcmd{\@maketitle}{\@title}{\merri\color{\maincolor}\bfseries\@title}{}{}
+    \patchcmd{\@maketitle}{\@author}{\merri\@author}{}{}
+    \patchcmd{\@maketitle}{\@date}{\merri\color{\maincolor}{\@date}}{}{}
+
+	%%fakesection Commutative diagrams support
+	\ifprimeridiagrams
+		\usepackage{diagrams}
+		\newarrow{Inj}C--->
+		\newarrow{Surj}----{>>}
+		\newarrow{Proj}----{>>}
+		\newarrow{Embed}>--->
+		\newarrow{Incl}C--->
+		\newarrow{Mapsto}|--->
+		\newarrow{Isom}<--->
+		\newarrow{Dotted}....>
+		\newarrow{Dashed}{}{dash}{}{dash}>
+		\newarrow{Line}-----
+		\usepackage{tikz-cd}
+		\usetikzlibrary{decorations.pathmorphing}
+		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
+	\fi
+
+	%%fakesection Page Setup
+	\ifprimerifancy
+		\@ifundefined{KOMAClassName}
+		{
+		    \usepackage{fancyhdr}
+			\setlength{\headheight}{0.75in}
+			\setlength{\oddsidemargin}{0in}
+			\setlength{\evensidemargin}{0in}
+			\setlength{\voffset}{-1.0in}
+			\setlength{\headsep}{10pt}
+			\setlength{\textwidth}{6.5in}
+			\setlength{\headwidth}{6.5in}
+			\setlength{\textheight}{8.75in}
+			\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+			\setlength{\footskip}{0.3in}
+			\ifprimerihdr
+				\renewcommand{\headrulewidth}{0.5pt}
+				\renewcommand{\footrulewidth}{0.0pt}
+				\pagestyle{fancy}
+				\lhead{Dylan Yu}
+				\chead{}
+				\rhead{\nouppercase{\leftmark}}
+				\lfoot{}
+				\cfoot{\thepage}
+				\rfoot{}
+			\fi
+		}
+		
+		
+			\usepackage[headsepline]{scrlayer-scrpage}
+			\renewcommand{\headfont}{}
+			\addtolength{\textheight}{3cm}
+			\setlength{\footskip}{0.2in}
+			\setlength{\headsep}{10pt}
+			\ihead{\sffamily\footnotesize\textbf{\theauthor} \textbf{\textcolor{\maincolor}{(\thedate )}}}
+			\chead{}
+			\cfoot{}
+			\ohead{\sffamily\footnotesize\textbf{\thetitle}}
+			\ofoot{\thepage}
+		
+		
+		
+		
+	\fi
+
+	%%fakesection Chinese support
+	\ifprimerichinese
+		\usepackage[encapsulated]{CJK}
+		\usepackage{ucs}
+		\usepackage[utf8x]{inputenc}
+		\newenvironment{bsmi}{\begin{CJK}{UTF8}{bsmi}}{\end{CJK}}
+		\newcommand{\cn}[1]{\begin{bsmi}#1\end{bsmi}}
+		\AtBeginDocument{\begin{CJK}{UTF8}{bsmi}}
+		\AtEndDocument{\end{CJK}}
+	\fi
+
+	%%fakesection Hints
+	\ifprimerihints
+		\usepackage{answers}
+		\Newassociation{hint}{hintitem}{hints}
+		\renewcommand{\solutionextension}{out}
+		\Opensolutionfile{hints}
+		\newcommand{\makehints}{\Closesolutionfile{hints}\input{hints.out}} % chktex 27
+	\fi
+%%fakesection END MAIN SETUP
+
+\usepackage{multicol}
+\usepackage{afterpage}
+\usepackage{pagecolor}
+\usepackage{ytableau}
+\usepackage{tikzducks}
+% \colorlet{titlepagecolor}{\maincolor}
+\usepackage{multirow}
+\usepackage{skak}
+\usepackage{mdframed}
+
+\usetikzlibrary{arrows, automata}
+
+\newcommand\titlepagedecoration{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+
+\coordinate (aux1) at ([yshift=-15pt]current page.north east);
+\coordinate (aux2) at ([yshift=-410pt]current page.north east);
+\coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+\coordinate (aux4) at ([yshift=-150pt]current page.north east);
+
+\begin{scope}[\maincolor!63,line width=12pt,rounded corners=12pt]
+
+\draw[\maincolor!63]
+  (aux1) -- coordinate (a) 
+  ++(225:5) --
+  ++(-45:5.1) coordinate (b);
+\draw[shorten <= -10pt]
+  (aux3) --
+  (a) --
+  (aux1);
+\draw[opacity=0.6,\secondcolor!50!\maincolor,shorten <= -10pt]
+  (b) --
+  ++(225:2.2) --
+  ++(-45:2.2);
+\end{scope}
+\draw[\maincolor!70!\secondcolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+  (aux4) --
+  ++(225:0.8) --
+  ++(-45:0.8);
+\begin{scope}[\secondcolor!70,line width=6pt,rounded corners=8pt]
+\draw[shorten <= -10pt]
+  (aux2) --
+  ++(225:3) coordinate[pos=0.45] (c) --
+  ++(-45:3.1);
+\draw[\secondcolor!80!\maincolor]
+  (aux2) --
+  (c) --
+  ++(135:2.5) --
+  ++(45:2.5) --
+  ++(-45:2.5) coordinate[pos=0.3] (d);   
+\draw[\secondcolor!65!\maincolor]
+  (d) -- +(45:1);
+  
+\end{scope}
+\end{tikzpicture}%
+}
+
+\usepackage[prefix=]{xcolor-material}
+\pgfmathdeclarerandomlist{material}{%
+{Red}{Blue}{Green}}
+\tikzset{%
+  half clip/.code={
+    \clip (0, -256) rectangle (256, 256);
+  },
+  color/.code=\colorlet{fill color}{#1},
+  color alias/.code args={#1 as #2}{\colorlet{#1}{#2}},
+  colors alias/.style={color alias/.list/.expanded={#1}},
+  execute/.code={#1},
+  on left/.style={.. on left/.style={#1}},
+  on right/.style={.. on right/.style={#1}},
+  split/.style args={#1 and #2}{
+    on left ={color alias=fill color as #1},
+    on right={color alias=fill color as #2, half clip}
+  }
+}
+\newcommand\reflect[2][]{%
+\begin{scope}[#1]\foreach \side in {-1, 1}{\begin{scope}
+\ifnum\side=-1 \tikzset{.. on left/.try}\else\tikzset{.. on right/.try}\fi
+\begin{scope}[xscale=\side]#2\end{scope}
+\end{scope}}\end{scope}}
+
+\tikzset{%
+squid/.pic={
+\begin{scope}[x=3cm/480,y=3cm/480]
+\useasboundingbox (-256, -256) (256, 256);
+\reflect[split={DeepOrange500 and DeepOrange700}]{
+  \fill [fill color] (0,96) ellipse [x radius=97, y radius=127];
+  \fill [fill color]
+    (72,-16)
+    .. controls ++(270:72) and ++(270:40) .. ++(108,  -16)
+    .. controls ++( 90:64) and ++(270:64) .. ++(-40,128)
+    .. controls ++( 90:32) and ++(270:32) .. ++( 40, 96)
+    arc (180:0:4)
+    .. controls ++(270: 32) and ++( 90: 32) .. ++(-24, -96)
+    .. controls ++(270: 64) and ++( 90: 64) .. ++( 56,-128)
+    .. controls ++(270:128) and ++(270:160) ..   (  0, -16);
+  \fill [fill color]  (64, 16) circle [radius=48];
+  \fill [Grey50]      (64, 16) circle [radius=32];
+  \fill [BlueGrey900] (64, 16) circle [radius=12];
+  \fill [fill color]  (-4, -20)
+    .. controls ++(270:256) and ++(225: 64) .. (128,-192)
+    arc (315:495:4)
+    .. controls ++(210: 64) and ++(270:192) .. (48, -40);
+}
+\fill [DeepOrange900]
+  (-40,-40) arc (180:360:40 and 16) arc (360:180:40 and 40);
+\fill [DeepOrange300]
+  (-32,108) circle [radius=16] (-40,160) circle [radius=12]
+  (-20,196) circle [radius= 8]  ( 40,160) circle [radius=16]
+  ( 64,120) circle [radius= 8]  ( 40,100) circle [radius=12];
+\end{scope}
+}
+}
+\newcommand{\tikznode}[2]{\tikz[remember picture,baseline=(#1.base),inner
+ sep=0pt]{\node(#1)[inner sep=0pt]{#2};}}
+
+\definecolor{purple11}{RGB}{51, 0, 102}
+\definecolor{Ultra1}{RGB}{18, 10, 142}
+\definecolor{SteelBlue}{RGB}{70,130,180}
+
+
+\newcommand{\chapquote}[3]{\begin{quotation} \textcolor{SteelBlue}{\textsl{#1}} \end{quotation} \begin{flushright} - \textcolor{SteelBlue}{#2} \textit{#3}\end{flushright} }
+
+%%% TITLE
+\newcommand{\dylantitle}{\maketitle \titlepagedecoration}
+
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+
+%%% ARRAY
+\usepackage{xparse}
+
+\ExplSyntaxOn
+\NewDocumentCommand{\storedata}{mm}
+  {
+   \bcp_store_data:nn { #1 } { #2 }
+  }
+
+\NewDocumentCommand{\appenddata}{mm}
+ {
+  \bcp_append_data:nn { #1 } { #2 }
+ }
+
+\NewExpandableDocumentCommand{\getdata}{O{1}m}
+ {
+  \bcp_get_data:nn { #1 } { #2 }
+ }
+
+\NewExpandableDocumentCommand{\getlength}{m}
+ {
+  \seq_count:c { l_bcp_data_#1_seq }
+ }
+
+\NewDocumentCommand{\removelast}{om}
+ {
+  \IfNoValueTF { #1 }
+   {
+    \bcp_remove_last:Nn \l_tmpa_tl { #2 }
+   }
+   {
+    \bcp_remove_last:Nn #1 { #2 }
+   }
+ }
+
+\cs_new_protected:Npn \bcp_store_data:nn #1 #2
+ {
+  % create the sequence if it doesn't exist or clear it if it exists
+  \seq_clear_new:c { l_bcp_data_#1_seq }
+  % append the items
+  \__bcp_append_data:nn { #1 } { #2 }
+ }
+
+\cs_new_protected:Npn \bcp_append_data:nn #1 #2
+ {
+  % create the sequence if it doesn't exist, do nothing if it exists
+  \seq_if_exist:cF { l_bcp_data_#1_seq }
+   { \seq_new:c { l_bcp_data_#1_seq } }
+  % append the items
+  \__bcp_append_data:nn { #1 } { #2 }
+ }
+
+\cs_new_protected:Npn \__bcp_append_data:nn #1 #2
+ {
+  % append items one at a time
+  \tl_map_inline:nn { #2 }
+   {
+    \seq_put_right:cn { l_bcp_data_#1_seq } { ##1 }
+   }
+ }
+
+\cs_new:Npn \bcp_get_data:nn #1 #2
+ {
+  % retrieve the requested item
+  \seq_item:cn { l_bcp_data_#2_seq } { #1 }
+ }
+
+\cs_new_protected:Nn \bcp_remove_last:Nn
+ {
+  \seq_pop_right:cN { l_bcp_data_#2_seq } #1
+ }
+
+\ExplSyntaxOff
+
+\usepackage{tikz, tikz-cd, pgfplots} 
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows.meta,arrows,scopes,patterns,shapes.geometric,angles,quotes,intersections,calc}
+\makeatletter
+\tikzset{% https://tex.stackexchange.com/a/142491
+  mirror/.code={\pgfutil@in@{--}{#1}\ifpgfutil@in@\tikz@trans@mirror#1\@nil
+    \else\tikz@scan@one@point\pgftransformmirror#1\relax\fi},
+  ymirror/.code={\pgfutil@ifnextchar(\tikz@trans@ymirror@coordinate\tikz@trans@ymirror@simple#1\@nil},
+  xmirror/.code={\pgfutil@ifnextchar(\tikz@trans@xmirror@coordinate\tikz@trans@xmirror@simple#1\@nil}}
+\def\tikz@trans@mirror#1--#2\@nil{%
+  \pgfextract@process\pgf@trans@mirror@A{\tikz@scan@one@point\pgfutil@firstofone#1}%
+  \pgfextract@process\pgf@trans@mirror@B{\tikz@scan@one@point\pgfutil@firstofone#2}%
+  \pgftransformMirror{\pgf@trans@mirror@A}{\pgf@trans@mirror@B}}
+\def\pgftransformxmirror#1{\pgfmathparse{2*(#1)}\pgftransformcm{-1}{0}{0}{1}{\pgfqpoint{+\pgfmathresult pt}{+0pt}}}
+\def\pgftransformymirror#1{\pgfmathparse{2*(#1)}\pgftransformcm{1}{0}{0}{-1}{\pgfqpoint{+0pt}{+\pgfmathresult pt}}}
+\def\tikz@trans@ymirror@simple#1\@nil{
+  \pgfmathparse{#1}\let\tikz@temp\pgfmathresult
+  \ifpgfmathunitsdeclared
+    \pgftransformymirror{\tikz@temp pt}%
+  \else
+    \pgf@process{\pgfpointxy{0}{\tikz@temp}}%
+    \pgftransformymirror{+\the\pgf@y}%
+  \fi}
+\def\tikz@trans@xmirror@simple#1\@nil{
+  \pgfmathparse{#1}\let\tikz@temp\pgfmathresult
+  \ifpgfmathunitsdeclared
+    \pgftransformxmirror{\tikz@temp pt}%
+  \else
+    \pgf@process{\pgfpointxy{\tikz@temp}{0}}%
+    \pgftransformxmirror{+\the\pgf@x}%
+  \fi}
+\def\tikz@trans@xmirror@coordinate#1\@nil{\tikz@scan@one@point\pgfutil@firstofone#1\pgftransformxmirror{+\the\pgf@x}}
+\def\tikz@trans@ymirror@coordinate#1\@nil{\tikz@scan@one@point\pgfutil@firstofone#1\pgftransformymirror{+\the\pgf@y}}
+\def\pgftransformmirror#1{%
+  \pgfpointnormalised{#1}%
+  \pgf@xa=\pgf@sys@tonumber\pgf@y\pgf@x
+  \pgf@xb=\pgf@sys@tonumber\pgf@x\pgf@x
+  \pgf@yb=\pgf@sys@tonumber\pgf@y\pgf@y
+  \multiply\pgf@xa2\relax
+  \pgf@xc=-\pgf@yb\advance\pgf@xc\pgf@xb
+  \pgf@yc=-\pgf@xb\advance\pgf@yc\pgf@yb
+  \edef\pgf@temp{{\the\pgf@xc}{+\the\pgf@xa}{+\the\pgf@xa}{+\the\pgf@yc}}%
+  \expandafter\pgf@transformcm\pgf@temp{\pgfpointorigin}}
+\def\pgftransformMirror#1#2{%
+  \pgfextract@process\pgf@trans@mirror@A{#1}%
+  \pgfextract@process\pgf@trans@mirror@B{#2}%
+  \pgfextract@process\pgf@trans@mirror@g{\pgfpointdiff{\pgf@trans@mirror@A}{\pgf@trans@mirror@B}}%
+  \pgftransformshift{\pgf@trans@mirror@A}%
+  \pgftransformmirror{\pgf@trans@mirror@g}%
+  \pgftransformshift{\pgfpointscale{-1}{\pgf@trans@mirror@A}}}
+\makeatother
+
+\pgfplotsset{every axis/.append style={
+axis x line=middle,    % put the x axis in the middle
+axis y line=middle,    % put the y axis in the middle
+axis line style={<->}, % arrows on the axis
+xlabel={$x$},          % default put x on x-axis
+ylabel={$y$},          % default put y on y-axis
+}}
+
+\pgfplotsset{soldot/.style={color=black,only marks,mark=*},
+ holdot/.style={color=black,fill=white,only marks,mark=*},
+ compat=1.12}
+ 
+ \usepackage{float}
