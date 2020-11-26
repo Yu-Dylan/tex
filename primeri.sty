@@ -1074,74 +1074,11 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 					\scalebox{2.72}{\color{\maincolor}\thechapter}\enskip}}
 			}
 	        \usepackage[Symbol]{upgreek}
-	        \usepackage{adjustbox}
-
-            \newcommand\ab[1]{\adjustbox{
-            padding=0ex 0ex 0ex 0ex,
-            margin=-.5ex -.5ex -.5ex -.5ex, 
-            valign=M, 
-            cfbox=blue!50!black!50 2pt, 
-            margin=-.7ex -1ex -1ex -.7ex,
-            cfbox=blue!30!black!70 2.5pt, 
-            bgcolor=cyan!10!white,
-            margin=0ex .5ex 0ex .5ex,
-            }{#1}}
-            
-            
-            \newcommand\bb[1]{\adjustbox{
-            padding=0ex 0ex 0ex 0ex,
-            margin=-.5ex -.5ex -.5ex -.5ex, 
-            valign=M, 
-            cfbox=blue!50!black!50 2pt, 
-            margin=-.7ex -1ex -1ex -.7ex,
-            cfbox=blue!30!black!70 2.5pt, 
-            bgcolor=blue!20!black!60,
-            margin=0ex .5ex 0ex .5ex,
-            }{#1}}
-            
-            
-            
-            \newcommand\kb[1]{
-            \ab{
-            \begin{minipage}[c][1em][c]{1em}
-            \centering#1
-            \end{minipage}
-            }}
-            
-            
-            \newcommand\calculator[1]{
-            \raisebox{.5ex}{\resizebox{#1}{!}{
-            \fboxrule=1.5pt
-            \bb{
-            \sffamily\bfseries
-            \begin{tabular}{l@{}l@{}l@{}l@{~}l}
-            \vspace{-.3cm}\\
-            \multicolumn{3}{l}{\bb{\fcolorbox{black!40!green!60}{black!30!green!30}{\Large ~~~~0.73122}}} & & \kb{\scriptsize ON} \\
-            \vspace{-.4cm}\\
-            \kb{1} & \kb{2} & \kb{3} & & \kb{+} \\
-            \kb{4} & \kb{5} & \kb{6} & & \kb{--}  \\
-            \kb{7} & \kb{8} & \kb{9} & & \kb{=}  \\
-            \end{tabular}
-            }}}}
-            
-            
-            \newcommand\calicon[1]{
-            \raisebox{.5ex}{\resizebox{#1}{!}{
-            \fboxrule=1.5pt
-            
-            \bb{
-            \sffamily\bfseries
-            \begin{tabular}{l@{}l@{}l@{}l@{~}l}
-            \vspace{-.3cm}\\
-            \multicolumn{3}{l}{\bb{\fcolorbox{black!40!green!60}{black!30!green!30}{\Large ~~~~~}}} & & \kb{\scriptsize } \\
-            \vspace{-.4cm}\\
-            \kb{} & \kb{} & \kb{} & & \kb{} \\
-            \kb{} & \kb{} & \kb{} & & \kb{}  \\
-            \kb{} & \kb{} & \kb{} & & \kb{}  \\
-            \end{tabular}
-            }}}}
 	        \usepackage{stackengine}
-			\newcommand{\sectionsymbol}{\calicon{1em}} % \stackanchor{$\uppi$}{\calculator}
+	        \newcommand{\circled}[2][none]{%
+                \tikz[baseline=(a.base)]\node[draw=#1,circle,inner sep=0.2pt, outer sep=0pt,fill=#1](a){\ensuremath #2\strut};
+            }
+			\newcommand{\sectionsymbol}{\S} % \stackanchor{$\uppi$}{$\uppi\uppi$} 
 			
 			\renewcommand*{\sectionformat}%
 				{\color{\maincolor}\sectionsymbol\thesection\enskip}
@@ -1560,4 +1497,10 @@ ylabel={$y$},          % default put y on y-axis
  holdot/.style={color=black,fill=white,only marks,mark=*},
  compat=1.12}
  
- \usepackage{float}
+%%% NEW MACROS FOR dylanadi -> evan conversion
+\renewenvironment{problem}{\begin{Problem}}{\end{Problem}}
+\newenvironment{definition}{\begin{defn}}{\end{defn}}
+\usepackage{float}
+\usepackage[makeroom]{cancel}
+\usepackage{tikz, tikz-cd, pgfplots} 
+\usepackage{multicol}
