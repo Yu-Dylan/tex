@@ -75,6 +75,7 @@
 \newif\ifdylanadititlemark\dylanadititlemarktrue
 \newif\ifdylanadinopts\dylanadinoptsfalse
 \newif\ifdylanadiretro\dylanadiretrofalse
+\newif\ifdylanadicabin\dylanadicabinfalse
 
 %Receive Arguments
 \DeclareOption{chinese}{\dylanadihreffalse\dylanadichinesetrue} % Chinese support
@@ -116,6 +117,8 @@
 
 \DeclareOption{hints}{\dylanadihintstrue}
 
+\DeclareOptions{cabin}{\dylanadicabintrue}
+
 \ProcessOptions\relax
 
 % if packages not loaded, turn off mdthm and asy
@@ -124,6 +127,10 @@
 
 % If no setup, turn off theorems
 \ifdylanadisetup\else\dylanadithmfalse\fi
+
+\ifdylanadicabin
+\usepackage{cabin}
+\fi
 
 %%fakesection Some macros
 %Small commands
