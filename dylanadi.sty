@@ -76,6 +76,7 @@
 \newif\ifdylanadinopts\dylanadinoptsfalse
 \newif\ifdylanadiretro\dylanadiretrofalse
 \newif\ifdylanadicabin\dylanadicabinfalse
+\newif\ifdylanadidarkmode\dylanadidarkmodefalse
 
 %Receive Arguments
 \DeclareOption{chinese}{\dylanadihreffalse\dylanadichinesetrue} % Chinese support
@@ -118,6 +119,8 @@
 \DeclareOption{hints}{\dylanadihintstrue}
 
 \DeclareOption{cabin}{\dylanadicabintrue}
+
+\DeclareOption{darkmode}{\dylanadidarkmodetrue}
 
 \ProcessOptions\relax
 
@@ -1971,4 +1974,13 @@ ylabel={$y$},          % default put y on y-axis
  holdot/.style={color=black,fill=white,only marks,mark=*},
  compat=1.12}
  
- \usepackage{float}
+\usepackage{float}
+ 
+\ifdylanadidarkmode
+\usepackage{xcolor}
+\usepackage{pagecolor}
+\usepackage{lipsum}  
+
+\pagecolor{black}
+\color{white}
+\fi
