@@ -980,6 +980,42 @@ leftline=true]{solution}[theorem]{Solution}
 \newtheorem*{walk}{Walkthrough} % always use the enumerate environment during walkthroughs
 
 % \def\walk{\noindent {\color{PineGreen}\sffamily\bfseries Walkthrough. }\hspace*{2mm}}
+
+\usetikzlibrary{calc}
+\usepackage{fourier-orns}
+\definecolor{warningColor}{HTML}{AF2828}
+\tikzset{
+  warningsymbol/.style={
+      circle,
+      draw=white,
+      fill=white,
+      scale=1,
+      overlay}
+}
+
+\mdfdefinestyle{warning}{%
+ hidealllines=true,leftline=true,
+ skipabove=12,skipbelow=12pt,
+ innertopmargin=0.2em,%
+ innerbottommargin=0.2em,%
+ innerrightmargin=0.2em,%
+ rightmargin=0.1em,%
+ innerleftmargin=1.7em,%
+ leftmargin=0.1em,%
+ middlelinewidth=.2em,%
+ linecolor=warningColor,%
+ fontcolor=warningColor,%
+ firstextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+ secondextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+ middleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+ singleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+}
+
+\newmdenv[style=warning]{caution}
 \else
 \ifdylanadisecthm
 \theoremstyle{dylantheo}
@@ -1297,6 +1333,42 @@ leftline=true]{solution}[theorem]{Solution}
 \newtheorem*{walk}{Walkthrough} % always use the enumerate environment during walkthroughs
 
 % \def\walk{\noindent {\color{PineGreen}\sffamily\bfseries Walkthrough. }\hspace*{2mm}}
+
+\usetikzlibrary{calc}
+\usepackage{fourier-orns}
+\definecolor{warningColor}{HTML}{FF1414}
+\tikzset{
+  warningsymbol/.style={
+      circle,
+      draw=white,
+      fill=white,
+      scale=1,
+      overlay}
+}
+
+\mdfdefinestyle{warning}{%
+ hidealllines=true,leftline=true,
+ skipabove=12,skipbelow=12pt,
+ innertopmargin=0.2em,%
+ innerbottommargin=0.2em,%
+ innerrightmargin=0.2em,%
+ rightmargin=0.1em,%
+ innerleftmargin=1.7em,%
+ leftmargin=0.1em,%
+ middlelinewidth=.2em,%
+ linecolor=warningColor,%
+ fontcolor=warningColor,%
+ firstextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+ secondextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+ middleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+ singleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[warningsymbol] {\warning};},%
+}
+
+\newmdenv[style=warning]{caution}
 \fi
 
 \newenvironment{boxpar}[1][]{%
