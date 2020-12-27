@@ -1551,6 +1551,26 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \prob{#1}{#2}
 }
 
+\usepackage{marvosym}
+\tikzset{
+  lightningsymbol/.style={
+      circle,
+      scale=1,
+      overlay}
+}
+\newenvironment{hardbox}{\begin{mdframed}[backgroundcolor=\maincolor!10,linecolor=\maincolor,linewidth=1mm,topline=false,bottomline=false,leftline=true,rightline=false,
+    innertopmargin=3pt,
+    innerbottommargin=2pt,
+    innerrightmargin=5pt,
+    innerleftmargin=5pt,firstextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[lightningsymbol] {\Huge\hspace*{-1cm}\textcolor{\maincolor}{\Lightning}};},
+    secondextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[lightningsymbol] {\Huge\hspace*{-1cm}\textcolor{\maincolor}{\Lightning}};},
+    middleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[lightningsymbol] {\Huge\hspace*{-1cm}\textcolor{\maincolor}{\Lightning}};},
+    singleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$) 
+                           node[lightningsymbol] {\Huge\hspace*{-1cm}\textcolor{\maincolor}{\Lightning}};},]}{\end{mdframed}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
