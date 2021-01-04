@@ -1016,6 +1016,25 @@ leftline=true]{solution}[theorem]{Solution}
 }
 
 \newmdenv[style=warning]{caution}
+
+\newcounter{question}
+\newenvironment{question}{
+\refstepcounter{question}\label{q\thequestion}%
+\noindent%
+\begin{addmargin}[0em]{0em}
+  \makebox[0pt][r]{\tikz[baseline=(text.base)]{
+    \coordinate (box top left) at (0, 0);
+    \coordinate (box bottom right) at (3em, 1.2\baselineskip);
+    \path[use as bounding box] (box top left) rectangle (box bottom right);
+    \fill[opacity=0.1, Sepia] (box top left) rectangle (box bottom right) node[midway, anchor=center](textpoint){};
+    \node[anchor=center, text=Sepia](text) at (textpoint) {\sffamily\arabic{question}};
+    \path[draw=Sepia, thick] let \p1 = (box top left), \p2 = (box bottom right) in (\p1) -- (\x2, \y1);
+  }\hspace{1em}}%
+}{
+\end{addmargin}
+\filbreak
+}
+
 \else
 \ifdylanadisecthm
 \theoremstyle{dylantheo}
@@ -1369,6 +1388,24 @@ leftline=true]{solution}[theorem]{Solution}
 }
 
 \newmdenv[style=warning]{caution}
+
+\newcounter{question}
+\newenvironment{question}{
+\refstepcounter{question}\label{q\thequestion}%
+\noindent%
+\begin{addmargin}[0em]{0em}
+  \makebox[0pt][r]{\tikz[baseline=(text.base)]{
+    \coordinate (box top left) at (0, 0);
+    \coordinate (box bottom right) at (3em, 1.2\baselineskip);
+    \path[use as bounding box] (box top left) rectangle (box bottom right);
+    \fill[opacity=0.1, RawSienna] (box top left) rectangle (box bottom right) node[midway, anchor=center](textpoint){};
+    \node[anchor=center, text=RawSienna](text) at (textpoint) {\sffamily\arabic{question}};
+    \path[draw=RawSienna, thick] let \p1 = (box top left), \p2 = (box bottom right) in (\p1) -- (\x2, \y1);
+  }\hspace{1em}}%
+}{
+\end{addmargin}
+\filbreak
+}
 \fi
 
 \newenvironment{boxpar}[1][]{%
