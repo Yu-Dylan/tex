@@ -522,6 +522,16 @@
   {}%                                    % Punctuation after theorem head
   {\newline}%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanclaim}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\color{white}}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{Emerald!5}\sffamily\bfseries}%                            % Theorem head font
+  { -- }%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1} \thmnote{ (#3)}}%   
 \else
 \newtheoremstyle{dylantheo}%                % Name
   {0pt}%                                     % Space above
@@ -662,6 +672,16 @@
   {}%                                    % Punctuation after theorem head
   {\newline\color{white}}%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanclaim}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{NavyBlue!5}\sffamily\bfseries}%                            % Theorem head font
+  { -- }%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1} \thmnote{ (#3)}}%   % dm indic
 \fi
 \else
 \ifdylanadiretro
@@ -804,6 +824,16 @@
   {}%                                    % Punctuation after theorem head
   {\newline}%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanclaim}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{Cyan!40!black}\sffamily\bfseries}%                            % Theorem head font
+  { -- }%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1} \thmnote{ (#3)}}%   
 \else
 \newtheoremstyle{dylantheo}%                % Name
   {0pt}%                                     % Space above
@@ -944,6 +974,16 @@
   {}%                                    % Punctuation after theorem head
   {\newline}%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanclaim}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{NavyBlue!90!black}\sffamily\bfseries}%                            % Theorem head font
+  { -- }%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1} \thmnote{ (#3)}}%   
 \fi
 \fi
 
@@ -1330,6 +1370,18 @@ leftline=true]{solution}[theorem]{Solution}
 \filbreak
 }
 
+\theoremstyle{dylanclaim}
+\newmdtheoremenv[% settings
+backgroundcolor=Cyan!40!black,
+linecolor=Emerald!5,
+linewidth=1mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{claim}{Claim}
 \else
 \ifdylanadisecthm
 \theoremstyle{dylantheo}
@@ -1704,6 +1756,19 @@ leftline=true]{solution}[theorem]{Solution}
 \end{addmargin}
 \filbreak
 }
+
+\theoremstyle{dylanclaim}
+\newmdtheoremenv[% settings
+backgroundcolor=NavyBlue!90!black,
+linecolor=NavyBlue!5,
+linewidth=1mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{claim}{Claim}
 \fi
 \else
 \ifdylanadiretro
@@ -2078,6 +2143,18 @@ leftline=true]{solution}[theorem]{Solution}
 \filbreak
 }
 
+\theoremstyle{dylanclaim}
+\newmdtheoremenv[% settings
+backgroundcolor=Emerald!5,
+linecolor=Cyan!40!black,
+linewidth=1mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{claim}{Claim}
 \else
 \ifdylanadisecthm
 \theoremstyle{dylantheo}
@@ -2449,6 +2526,19 @@ leftline=true]{solution}[theorem]{Solution}
 \end{addmargin}
 \filbreak
 }
+
+\theoremstyle{dylanclaim}
+\newmdtheoremenv[% settings
+backgroundcolor=NavyBlue!5,
+linecolor=NavyBlue!90!black,
+linewidth=1mm,
+nobreak=false,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{claim}{Claim}
 \fi
 \fi
 
