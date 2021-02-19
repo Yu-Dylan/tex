@@ -15,7 +15,6 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{fontawesome}
-\usepackage{paralist}
 \RequirePackage[skaknew]{skak}
 
 \DeclareRobustCommand{\alegreyafont}{\fontfamily{Alegreya-LF}\selectfont} % defines alegreya
@@ -188,7 +187,6 @@
 
 %Convenient Environments
 \newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
-\newenvironment{answer}{\begin{proof}[Answer]}{\end{proof}}
 \newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
 \newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
 
@@ -531,7 +529,7 @@
   {\color{white}}%                                     % Body font
   {}%                                     % Indent amount
   {\color{Emerald!5}\sffamily\bfseries}%                            % Theorem head font
-  { -- }%                                    % Punctuation after theorem head
+  { --- }%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1} \thmnote{ (#3)}}%   
 \else
@@ -681,7 +679,7 @@
   {}%                                     % Body font
   {}%                                     % Indent amount
   {\color{NavyBlue!5}\sffamily\bfseries}%                            % Theorem head font
-  { -- }%                                    % Punctuation after theorem head
+  { --- }%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1} \thmnote{ (#3)}}%   % dm indic
 \fi
@@ -833,7 +831,7 @@
   {}%                                     % Body font
   {}%                                     % Indent amount
   {\color{Cyan!40!black}\sffamily\bfseries}%                            % Theorem head font
-  { -- }%                                    % Punctuation after theorem head
+  { --- }%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1} \thmnote{ (#3)}}%   
 \else
@@ -983,7 +981,7 @@
   {}%                                     % Body font
   {}%                                     % Indent amount
   {\color{NavyBlue!90!black}\sffamily\bfseries}%                            % Theorem head font
-  { -- }%                                    % Punctuation after theorem head
+  { --- }%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1} \thmnote{ (#3)}}%   
 \fi
@@ -2544,14 +2542,154 @@ leftline=true]{claim}{Claim}
 \fi
 \fi
 
+\usepackage{minted}
+\usemintedstyle{manni}
+
 \ifdylanadidarkmode
 \newenvironment{boxpar}[1][]{%
 \begin{mdframed}[nobreak=false,backgroundcolor=black,linecolor=white]\vspace*{-0.5cm}\paragraph{\color{\maincolor}\sffamily #1}\color{white}
 }{\end{mdframed}}
+
+\usetikzlibrary{calc,arrows}
+\tikzset{
+    excursus arrow/.style={%
+        line width=2pt,
+        draw=\secondcolor,
+        rounded corners=2ex,
+    },
+    excursus head/.style={
+        fill=black,
+        font=\bfseries\sffamily,
+        text=white,
+        anchor=base west,
+    },
+}
+
+\mdfdefinestyle{arrowbox}{%
+    singleextra={%
+        \path[fill=black] let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path[fill=black] let \p1=(Q), \p2=(O) in (\x1,{(\y1-\y2)/2}) coordinate (M);
+        \path [excursus arrow, round cap-to]
+        ($(O)+(5em,0ex)$) -| (M) |- %
+        ($(Q)+(12em,0ex)$) .. controls +(0:16em) and +(185:6em) .. %
+        ++(23em,2ex);
+        % \node [excursus head] at ($(Q)+(2.5em,-0.75pt)$) {Theorem};
+        },
+    firstextra={%
+        \path[fill=black] let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path[fill=black] [excursus arrow,-to]
+        (O) |- %
+        ($(Q)+(12em,0ex)$) .. controls +(0:16em) and +(185:6em) .. %
+        ++(23em,2ex);
+        % \node [excursus head] at ($(Q)+(2.5em,-2pt)$) {Theorem};
+        },
+    secondextra={%
+        \path[fill=black] let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path[fill=black] [excursus arrow,round cap-]
+        ($(O)+(5em,0ex)$) -| (Q);},
+    middleextra={%
+        \path[fill=black] let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path [excursus arrow]
+        (O) -- (Q);},
+    middlelinewidth=1.5em,middlelinecolor=black,
+    hidealllines=true,topline=true,
+    innertopmargin=0ex,
+    innerbottommargin=2ex,
+    innerrightmargin=2ex,
+    innerleftmargin=2ex,
+    skipabove=0.87\baselineskip,
+    skipbelow=0.62\baselineskip,
+}
+
+\declaretheoremstyle[
+	headfont=\sffamily\bfseries\color{\secondcolor},
+	mdframed={style=arrowbox,backgroundcolor=black},
+	headpunct={},
+	postheadspace={0pt}
+]{arrows}
+
+\declaretheorem[style=arrows,name=Notation,numbered=no]{notationbox}
+
+\newenvironment{notation}{
+\begin{notationbox}~
+\color{white}
+\begin{itemize}    
+}{
+\end{itemize}
+\end{notationbox}
+}
 \else
 \newenvironment{boxpar}[1][]{%
 \begin{mdframed}[nobreak=false]\vspace*{-0.5cm}\paragraph{\color{\maincolor}\sffamily #1}
 }{\end{mdframed}}
+
+\usetikzlibrary{calc,arrows}
+\tikzset{
+    excursus arrow/.style={%
+        line width=2pt,
+        draw=\secondcolor,
+        rounded corners=2ex,
+    },
+    excursus head/.style={
+        fill=white,
+        font=\bfseries\sffamily,
+        text=black!80,
+        anchor=base west,
+    },
+}
+
+\mdfdefinestyle{arrowbox}{%
+    singleextra={%
+        \path let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path let \p1=(Q), \p2=(O) in (\x1,{(\y1-\y2)/2}) coordinate (M);
+        \path [excursus arrow, round cap-to]
+        ($(O)+(5em,0ex)$) -| (M) |- %
+        ($(Q)+(12em,0ex)$) .. controls +(0:16em) and +(185:6em) .. %
+        ++(23em,2ex);
+        % \node [excursus head] at ($(Q)+(2.5em,-0.75pt)$) {Theorem};
+        },
+    firstextra={%
+        \path let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path [excursus arrow,-to]
+        (O) |- %
+        ($(Q)+(12em,0ex)$) .. controls +(0:16em) and +(185:6em) .. %
+        ++(23em,2ex);
+        % \node [excursus head] at ($(Q)+(2.5em,-2pt)$) {Theorem};
+        },
+    secondextra={%
+        \path let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path [excursus arrow,round cap-]
+        ($(O)+(5em,0ex)$) -| (Q);},
+    middleextra={%
+        \path let \p1=(P), \p2=(O) in (\x2,\y1) coordinate (Q);
+        \path [excursus arrow]
+        (O) -- (Q);},
+    middlelinewidth=1.5em,middlelinecolor=white,
+    hidealllines=true,topline=true,
+    innertopmargin=0ex,
+    innerbottommargin=2ex,
+    innerrightmargin=2ex,
+    innerleftmargin=2ex,
+    skipabove=0.87\baselineskip,
+    skipbelow=0.62\baselineskip,
+}
+
+\declaretheoremstyle[
+	headfont=\sffamily\bfseries\color{\secondcolor},
+	mdframed={style=arrowbox},
+	headpunct={},
+	postheadspace={0pt}
+]{arrows}
+
+\declaretheorem[style=arrows,name=Notation,numbered=no]{notationbox}
+
+\newenvironment{notation}{
+\begin{notationbox}~
+\begin{itemize}    
+}{
+\end{itemize}
+\end{notationbox}
+}
 \fi
 
 \newenvironment{keywords}{\begin{abstract} \sffamily\small \textbf{Keywords:}}{\end{abstract}}
@@ -3294,6 +3432,3 @@ ylabel={$y$},          % default put y on y-axis
 	defaultpen(white);
 \end{asydef}
 \fi
-
-\usepackage{minted}
-\usemintedstyle{manni}
