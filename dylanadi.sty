@@ -15,6 +15,7 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{fontawesome}
+\usepackage{paralist}
 \RequirePackage[skaknew]{skak}
 
 \DeclareRobustCommand{\alegreyafont}{\fontfamily{Alegreya-LF}\selectfont} % defines alegreya
@@ -187,6 +188,7 @@
 
 %Convenient Environments
 \newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{answer}{\begin{proof}[Answer]}{\end{proof}}
 \newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
 \newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
 
