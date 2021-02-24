@@ -1,0 +1,93 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[retro,cabin,sleek]{dylanadi}
+
+\title{dylanadi.sty}
+\author{Dylan Yu}
+\date{\today}
+\changemaincolor{Emerald}
+\changesecondcolor{Periwinkle}
+
+\begin{document}
+
+\dylantitle
+\tableofcontents
+
+\section{Theorems}
+\begin{notation}
+\item For a triangle $ABC$, $AB=c,BC=a,CA=b$.
+\item The semiperimeter of $\triangle ABC$ is denoted as $s=\frac{a+b+c}{2}$.
+\end{notation}
+\begin{theorem}[Pythagorean Theorem]
+For positive $a,b,c$, 
+$$a^2+b^2=c^2.$$
+\end{theorem}
+\begin{proof}
+We will apply the following claim:
+\begin{claim}
+All squares are rectangles.
+\end{claim}
+Just kidding.
+\end{proof}
+\begin{example}
+What is $3^2+4^2$?
+\end{example}
+\begin{walk}~
+\begin{enumerate}
+    \item Where have we seen some of squares?
+    \item That's right -- Pythagorean Theorem!
+    \item Thus, we can take advantage of a 3-4-5 triangle.
+    \item Alternatively, \textbf{just calculate it}.
+\end{enumerate}
+\end{walk}
+\begin{defn}[Theorem]
+A \vocab{theorem} is a general proposition proved by a chain of reasoning.
+\end{defn}
+\begin{fact}
+This is important!
+\end{fact}
+\begin{remark}
+This is also important.
+\end{remark}
+\begin{boxpar}[Paragraph]
+Nice looking box.
+\end{boxpar}
+\begin{caution}
+This is a warning box, in case there's something important to talk about. For example, a bogus solution could go here. It helps denote what could possibly be incorrect: i.e.,
+$$a^3+b^3=c^3$$
+in a right triangle is wrong (if they represent the side lengths of the triangle).
+\end{caution}
+\begin{exercisebox}
+\begin{exercise}[AIME II 2020/3]
+The value of $x$ that satisfies $\log_{2^x} 3^{20} = \log_{2^{x+3}} 3^{2020}$ can be written as $\frac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+\end{exercise}
+\begin{exercise}[AIME 1986/8]
+Let $S$ be the sum of the base $10$ logarithms of all the proper divisors (all divisors of a number excluding itself) of $1000000$. What is the integer nearest to $S$?
+\end{exercise}
+\begin{exercise}[AIME I 2020/2]
+There is a unique positive real number $x$ such that the three numbers $\log_8{2x}$, $\log_4{x}$, and $\log_2{x}$, in that order, form a geometric progression with positive common ratio. The number $x$ can be written as $\frac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m + n$.
+\end{exercise}
+\end{exercisebox}
+\begin{question}
+This is a question. What is your question?
+\end{question}
+
+\problems
+\minpt{32}
+
+\psetquote{I like cheeseburgers.}{Anonymous} 
+
+\prob[2]{AIME I 2007/7}{Let $N = \sum\limits_{k = 1}^{1000} k ( \lceil \log_{\sqrt{2}} k \rceil  - \lfloor \log_{\sqrt{2}} k \rfloor ).$ Find the remainder when $N$ is divided by 1000. ($\lfloor{k}\rfloor$ is the greatest integer less than or equal to $k$, and $\lceil{k}\rceil$ is the least integer greater than or equal to $k$.)}
+
+\req[3]{AIME II 2010/5}{Positive numbers $x$, $y$, and $z$ satisfy $xyz = 10^{81}$ and $(\log_{10}x)(\log_{10} yz) + (\log_{10}y) (\log_{10}z) = 468$. Find $\sqrt {(\log_{10}x)^2 + (\log_{10}y)^2 + (\log_{10}z)^2}$.}
+
+\begin{hardbox}
+\prob[9]{AIME I 2012/9}{Let $x,$ $y,$ and $z$ be positive real numbers that satisfy \[2\log_{x}(2y) = 2\log_{2x}(4z) = \log_{2x^4}(8yz) \ne 0.\] The value of $xy^5z$ can be expressed in the form $\frac{1}{2^{p/q}},$ where $p$ and $q$ are relatively prime positive integers. Find $p+q.$}
+\end{hardbox}
+
+\problem{Problem without points or source.}
+
+\begin{Problem}[Hello]
+It's me.
+\end{Problem}
+
+\end{document}
