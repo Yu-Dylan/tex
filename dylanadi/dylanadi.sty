@@ -3434,3 +3434,57 @@ ylabel={$y$},          % default put y on y-axis
 	defaultpen(white);
 \end{asydef}
 \fi
+
+%%% QUICK NOTES %%%
+\newcommand{\iiimain}[3]{
+\def\inpone{#1}
+\def\inptwo{#2}
+\def\keywordx{normal}
+\def\keywordy{style}
+\def\colorred{red}
+\def\colorblue{blue}
+\def\colorforestgreen{ForestGreen}
+\ifx\inpone\keywordx
+\item
+\else
+\ifx\inpone\keywordy
+\ifx\inptwo\colorred
+\item[\refstepcounter{enumi}\color{\colorred}\textbf{\textsf{Definition \theenumi.}}]
+\else
+\ifx\inptwo\colorblue
+\item[\refstepcounter{enumi}\color{\colorblue}\textbf{\textsf{Theorem \theenumi.}}]
+\else
+\ifx\inptwo\colorforestgreen
+\item[\refstepcounter{enumi}\color{\colorforestgreen}\textbf{\textsf{Example \theenumi.}}]
+\else
+\item[\refstepcounter{enumi}\textbf{\textsf{Problem \theenumi.}}]
+\fi
+\fi
+\fi
+\else
+\item[\refstepcounter{enumi}\fcolorbox{#2}{#3}{\color{#2} \textbf{\protect\threedigits{\theenumi}}}]
+\fi
+}
+
+\newcommand{\iii}[1][black]{
+\iiimain{style}{#1}{#1!20}
+}
+
+\newcommand{\rii}{
+\iii[red]
+}
+\newcommand{\gii}{
+\iii[ForestGreen]
+}
+\newcommand{\bii}{
+\iii[blue]
+}
+
+\newcommand{\dii}{\rii}
+\newcommand{\tii}{\bii}
+\newcommand{\eii}{\gii}
+\newcommand{\pii}{\iii[black]}
+
+\newenvironment{infobox}{%
+\begin{enumerate}[wide,labelwidth=!,labelindent=0pt]
+}{\end{enumerate}}
