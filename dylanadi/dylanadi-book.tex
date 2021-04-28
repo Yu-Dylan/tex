@@ -1,0 +1,30 @@
+\documentclass[paper=6.125in:8.25in,twoside,openany,pagesize=pdftex,10pt]{scrbook}
+
+\usepackage[retro,cabin,sleek,nosecthm]{dylanadi}
+\usepackage[top=1cm, bottom=1.5cm, left=1cm, right=1cm]{geometry}
+
+\title{dylanadi.sty Book}
+\author{Dylan Yu}
+\date{\today}
+% \date{\today}
+\changemaincolor{blue}
+\changesecondcolor{red}
+
+\begin{document}
+
+\begingroup % figure out how to put logo in
+\notofont
+\color{\secondcolor}
+\let\newpage\relax%
+\dylantitle
+\endgroup
+
+\newpage
+
+\tableofcontents
+
+\chapter{First chapter}
+\section{First section}
+Hello.
+
+\end{document}
