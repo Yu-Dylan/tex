@@ -475,6 +475,16 @@
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%
   
+\newtheoremstyle{dylanProblemnonum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\color{white}}%                                     % Body font
+  {}%                                     % Indent amount
+  {\notofont\color{\maincolor}\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%
+  
 \newtheoremstyle{dylanwalk}%                % Name
   {}%                                     % Space above
   {}%                                     % Space below
@@ -624,6 +634,16 @@
   {.}%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%
+  
+\newtheoremstyle{dylanProblemnonum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\color{white}}%                                     % Body font
+  {}%                                     % Indent amount
+  {\notofont\color{\maincolor}\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%
   
 \newtheoremstyle{dylanwalk}%                % Name
   {}%                                     % Space above
@@ -777,6 +797,16 @@
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%
   
+\newtheoremstyle{dylanProblemnonum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\notofont\color{\maincolor}\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%
+  
 \newtheoremstyle{dylanwalk}%                % Name
   {}%                                     % Space above
   {}%                                     % Space below
@@ -926,6 +956,16 @@
   {.}%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%
+  
+\newtheoremstyle{dylanProblemnonum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {}%                                     % Body font
+  {}%                                     % Indent amount
+  {\notofont\color{\maincolor}\bfseries}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%
   
 \newtheoremstyle{dylanwalk}%                % Name
   {}%                                     % Space above
@@ -1198,6 +1238,17 @@ topline=false,
 bottomline=false,
 rightline=false,
 leftline=false]{Problem}{Problem}
+
+\theoremstyle{dylanProblemnonum}
+\newmdtheoremenv[% settings
+backgroundcolor=black,
+nobreak=false,
+innerleftmargin=0pt,
+innerrightmargin=0pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{Problem*}{Problem}
 
 % \makeatletter
 % \newcommand\asycode[2][]{%
@@ -1585,6 +1636,17 @@ topline=false,
 bottomline=false,
 rightline=false,
 leftline=false]{Problem}{Problem}
+
+\theoremstyle{dylanProblemnonum}
+\newmdtheoremenv[% settings
+backgroundcolor=black,
+nobreak=false,
+innerleftmargin=0pt,
+innerrightmargin=0pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{Problem*}{Problem}
 
 % \makeatletter
 % \newcommand\asycode[2][]{%
@@ -1974,6 +2036,16 @@ bottomline=false,
 rightline=false,
 leftline=false]{Problem}{Problem}
 
+\theoremstyle{dylanProblemnonum}
+\newmdtheoremenv[% settings
+nobreak=false,
+innerleftmargin=0pt,
+innerrightmargin=0pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{Problem*}{Problem}
+
 % \makeatletter
 % \newcommand\asycode[2][]{%
 %   \stepcounter{asy}%
@@ -2357,6 +2429,16 @@ topline=false,
 bottomline=false,
 rightline=false,
 leftline=false]{Problem}{Problem}
+
+\theoremstyle{dylanProblemnonum}
+\newmdtheoremenv[% settings
+nobreak=false,
+innerleftmargin=0pt,
+innerrightmargin=0pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=false]{Problem*}{Problem}
 
 % \makeatletter
 % \newcommand\asycode[2][]{%
