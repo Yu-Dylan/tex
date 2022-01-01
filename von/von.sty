@@ -39,7 +39,7 @@
 
 
 \def\von{\@ifstar\@vonstar\@von}
-\newcommand{\vonenvname}{problem}
+\newcommand{\vonenvname}{Problem}
 \newcommand{\@von}[2][]{%
 	\ifthenelse{\isempty{#1}}%
 	{\begin{\vonenvname}[#2] \voninclude{#2} \end{\vonenvname}}%
@@ -120,9 +120,10 @@
 
 \ExplSyntaxOff
 
-\renewcommand{\vonenvname}{example}
 \storedata{vonsources}{}
 \storedata{vonsols}{}
+
+\renewcommand{\vonenvname}{example}
 
 \newcommand{\vonexample}[1]{
     \appenddata{vonsources}{{#1}}
@@ -140,3 +141,6 @@
         \getdata[\i]{vonsols}
     }
 }
+
+\providecommand\problems{} % Defines just in case
+\renewcommand{\problems}{\renewcommand{\vonenvname}{Problem}\pagebreak\section{Problems}}
