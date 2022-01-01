@@ -15,5 +15,4 @@ Style file for taking notes. As the name suggests, there's not much going on des
 # von
 Used for LaTeX integration with [VON](https://github.com/vEnhance/von). It's not the same as Evan's and is really only for personal use.
 
-# Footnotes
 [^fn1]: This is no longer a reason; I compile locally now!
