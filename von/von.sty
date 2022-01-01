@@ -1,0 +1,142 @@
+\ProvidesPackage{von}[2016/08/06 v1.0 VON problem manager]
+\usepackage{pythontex}
+\usepackage{xstring}
+\usepackage{xifthen}
+\usepackage{color}
+% Generate a unique name using the first 12 characters of an MD5 sum
+% #1 is always index
+% #2 is always source
+\def\vonprefix{.} % must be a directory name (with slash)
+\def\@vonsetname#1#2{\StrLeft{\pdfmdfivesum{#1#2}}{12}[\@vonname]}
+
+\newif\ifvonbrave\vonbravefalse
+\DeclareOption{brave}{\vonbravetrue}
+\DeclareOption{timid}{\vonbravefalse}
+
+\newcommand{\vonhook}[1]{}
+\newcommand{\vonmarginstyle}{\scriptsize\ttfamily\color{Green}}%
+\newcommand{\enablevonmargins}{%
+	\renewcommand{\vonhook}[1]{\marginpar{\vonmarginstyle{##1}}}}
+\DeclareOption{vonmargin}{\enablevonmargins}
+\ProcessOptions\relax
+
+% We need to store results since StrLeft isn't purely expandable
+\newcommand{\@vonname}{}
+\newwrite\@vonfile
+\newcommand{\@voncore}[2]{
+	\@vonsetname{#1}{#2}%
+	\immediate\openout\@vonfile=\vonprefix/_v\@vonname.bat%
+	\ifvonbrave
+	\immediate\write\@vonfile{python -m von show "#2" --brave -b #1 > _v\@vonname.out}%
+	\else
+	\immediate\write\@vonfile{python -m von show "#2" -b #1 > _v\@vonname.out}%
+	\fi
+	\immediate\closeout\@vonfile%
+	\vonhook{#2}% for example a margin par
+	\IfFileExists{\vonprefix/_v\@vonname.out}{\input{\vonprefix/_v\@vonname.out}}%
+	{\PackageWarning{von}{file `\vonprefix/_v\@vonname.out' not found}}}
+\newcommand{\voninclude}[2][0]{\@voncore{#1}{#2}}
+
+
+\def\von{\@ifstar\@vonstar\@von}
+\newcommand{\vonenvname}{problem}
+\newcommand{\@von}[2][]{%
+	\ifthenelse{\isempty{#1}}%
+	{\begin{\vonenvname}[#2] \voninclude{#2} \end{\vonenvname}}%
+	{\begin{\vonenvname}[#1] \voninclude{#2} \end{\vonenvname}}}
+\newcommand{\@vonstar}[1]{\begin{\vonenvname} \voninclude{#1} \end{\vonenvname}}
+
+%%% ARRAY
+\usepackage{xparse}
+
+\ExplSyntaxOn
+\NewDocumentCommand{\storedata}{mm}
+  {
+   \bcp_store_data:nn { #1 } { #2 }
+  }
+
+\NewDocumentCommand{\appenddata}{mm}
+ {
+  \bcp_append_data:nn { #1 } { #2 }
+ }
+
+\NewExpandableDocumentCommand{\getdata}{O{1}m}
+ {
+  \bcp_get_data:nn { #1 } { #2 }
+ }
+
+\NewExpandableDocumentCommand{\getlength}{m}
+ {
+  \seq_count:c { l_bcp_data_#1_seq }
+ }
+
+\NewDocumentCommand{\removelast}{om}
+ {
+  \IfNoValueTF { #1 }
+   {
+    \bcp_remove_last:Nn \l_tmpa_tl { #2 }
+   }
+   {
+    \bcp_remove_last:Nn #1 { #2 }
+   }
+ }
+
+\cs_new_protected:Npn \bcp_store_data:nn #1 #2
+ {
+  % create the sequence if it doesn't exist or clear it if it exists
+  \seq_clear_new:c { l_bcp_data_#1_seq }
+  % append the items
+  \__bcp_append_data:nn { #1 } { #2 }
+ }
+
+\cs_new_protected:Npn \bcp_append_data:nn #1 #2
+ {
+  % create the sequence if it doesn't exist, do nothing if it exists
+  \seq_if_exist:cF { l_bcp_data_#1_seq }
+   { \seq_new:c { l_bcp_data_#1_seq } }
+  % append the items
+  \__bcp_append_data:nn { #1 } { #2 }
+ }
+
+\cs_new_protected:Npn \__bcp_append_data:nn #1 #2
+ {
+  % append items one at a time
+  \tl_map_inline:nn { #2 }
+   {
+    \seq_put_right:cn { l_bcp_data_#1_seq } { ##1 }
+   }
+ }
+
+\cs_new:Npn \bcp_get_data:nn #1 #2
+ {
+  % retrieve the requested item
+  \seq_item:cn { l_bcp_data_#2_seq } { #1 }
+ }
+
+\cs_new_protected:Nn \bcp_remove_last:Nn
+ {
+  \seq_pop_right:cN { l_bcp_data_#2_seq } #1
+ }
+
+\ExplSyntaxOff
+
+\renewcommand{\vonenvname}{example}
+\storedata{vonsources}{}
+\storedata{vonsols}{}
+
+\newcommand{\vonexample}[1]{
+    \appenddata{vonsources}{{#1}}
+    \begin{example}[#1]\label{ex:#1}
+        \voninclude{#1}
+    \end{example}
+    \appenddata{vonsols}{{\voninclude[1]{#1}}}
+}
+
+\newcommand{\printsolutions}{
+    \newpage
+    \section{Selected Solutions}
+    \foreach \i in {1,...,\getlength{vonsols}}{
+        \subsection{Solution \ref{ex:\getdata[\i]{vonsources}} (\getdata[\i]{vonsources})}
+        \getdata[\i]{vonsols}
+    }
+}
