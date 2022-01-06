@@ -39,7 +39,7 @@
 
 
 \def\von{\@ifstar\@vonstar\@von}
-\newcommand{\vonenvname}{Problem}
+\newcommand{\vonenvname}{example}
 \newcommand{\@von}[2][]{%
 	\ifthenelse{\isempty{#1}}%
 	{\begin{\vonenvname}[#2] \voninclude{#2} \end{\vonenvname}}%
@@ -122,22 +122,85 @@
 
 \storedata{vonsources}{}
 \storedata{vonsols}{}
+\storedata{vonlabels}{}
 
-\renewcommand{\vonenvname}{example}
+% My own VON styles
 
-\newcommand{\vonexample}[1]{
+\newcommand{\vonexample}{\@ifstar\@vonexamplestar\@vonexample}
+
+\newcommand{\@vonexample}[2][]{
+    \appenddata{vonlabels}{{1}}
+    \appenddata{vonsources}{{#2}}
+    \ifthenelse{\isempty{#1}}
+    {
+        \begin{example}[#2]\label{ex:#2}
+            \voninclude{#2}
+        \end{example}
+    }
+    {
+        \begin{example}[#1]\label{ex:#2}
+            \voninclude{#2}
+        \end{example}
+    }
+    \appenddata{vonsols}{{\voninclude[1]{#2}}}
+}
+
+\newcommand{\@vonexamplestar}[1]{
+    \appenddata{vonlabels}{{0}}
     \appenddata{vonsources}{{#1}}
-    \begin{example}[#1]\label{ex:#1}
+    \begin{example}\label{ex:#1}
         \voninclude{#1}
     \end{example}
     \appenddata{vonsols}{{\voninclude[1]{#1}}}
+}
+
+\newcommand{\vonwalk}{\@ifstar\@vonwalkstar\@vonwalk}
+
+\newcommand{\@vonwalk}[2][]{
+    \vonexample[#1]{#2}
+    \begin{walk}
+    \voninclude[2]{#2}
+    \end{walk}
+}
+
+\newcommand{\@vonwalkstar}[1]{
+    \vonexample*{#1}
+    \begin{walk}
+    \voninclude[2]{#1}
+    \end{walk}
+}
+
+\def\supressindent{\@nobreaktrue\global\@afterindentfalse\@afterheading}
+
+\newcommand{\vonall}[2][]{
+    \ifthenelse{\isempty{#1}}
+    {\section{#2}}
+    {\section{#1}}
+    
+    {
+        \color{\secondcolor}
+        \voninclude{#2}
+    }
+
+    \supressindent
+    \hrulefill
+
+    \bigskip
+    \supressindent
+    \voninclude[1]{#2}
 }
 
 \newcommand{\printsolutions}{
     \newpage
     \section{Selected Solutions}
     \foreach \i in {1,...,\getlength{vonsols}}{
-        \subsection{Solution \ref{ex:\getdata[\i]{vonsources}} (\getdata[\i]{vonsources})}
+        \ifthenelse{\equal{\getdata[\i]{vonlabels}}{0}}
+        {
+            \subsection{Solution \ref{ex:\getdata[\i]{vonsources}}}
+        }
+        {
+            \subsection{Solution \ref{ex:\getdata[\i]{vonsources}} (\getdata[\i]{vonsources})}
+        }
         \getdata[\i]{vonsols}
     }
 }
