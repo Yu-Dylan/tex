@@ -7,7 +7,7 @@ I recommend using dylanadi, since a) it is the most versatile and b) I think it 
 
 # Description of style files
 ## dylanadi
-My main style file. I use it for basically everything, and it looks pretty.
+My main style file. I use it for basically everything, and it looks pretty. Reliant on olympiad.asy and cse5.asy, which can be found [here](https://github.com/vEnhance/dotfiles/tree/main/asy).
 ## plain
 Style file for taking notes. As the name suggests, there's not much going on design-wise.
 ## dylan
