@@ -11,8 +11,8 @@ My main style file. I use it for basically everything, and it looks pretty. Reli
 ## plain
 Style file for taking notes. As the name suggests, there's not much going on design-wise.
 ## dylan
-My first style file, based of [lindrew.sty](http://www.mit.edu/~lindrew/notes.html). I no longer use it.
-## primeri.sty
+My first style file, based off [lindrew.sty](http://www.mit.edu/~lindrew/notes.html). I no longer use it.
+## primeri
 An early version of dylanadi.sty that I used to create the formatting of the Primeri camp handouts.
 ## dylanbook
 Not really mine; I just made some changes to an existing style file I've now forgotten the name of and I don't think I've ever used it (it works though!).
