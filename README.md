@@ -20,7 +20,7 @@ Not really mine; I just made some changes to an existing style file I've now for
 Used for LaTeX integration with [VON](https://github.com/vEnhance/von). It's not the same as Evan's and is really only for personal use.
 
 # Attribution
-Attribution is only required in the source version, but I'd appreciate if you acknowledged me in the PDF output. Copy the following into your document:
+Attribution is only required in the source version, but I'd appreciate it if you acknowledge me in the PDF output. Copy the following into your document:
 ```tex
 % Boost Software License - Version 1.0 - August 17th, 2003
 %
