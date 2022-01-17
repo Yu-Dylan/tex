@@ -53,5 +53,6 @@ More info on the Boost Software License can be found [here](https://www.boost.or
 ```tex
 This document was made using \href{https://github.com/Yu-Dylan/tex/blob/master/dylanadi/dylanadi.sty}{dylanadi.sty}.
 ```
+You should replace `dylanadi.sty` with whatever style file of mine you are using.
 
 [^fn1]: This is no longer a reason; I compile locally now!
