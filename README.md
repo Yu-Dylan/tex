@@ -49,7 +49,7 @@ Attribution is only required in the source version, but I'd appreciate if you ac
 % ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 % DEALINGS IN THE SOFTWARE.
 ```
-And if you'd like, you can put a line that says something to the effect of
+More info on the Boost Software License can be found [here](https://www.boost.org/users/license.html). And if you'd like, you can put a line that says something to the effect of
 ```tex
 This document was made using \href{https://github.com/Yu-Dylan/tex/blob/master/dylanadi/dylanadi.sty}{dylanadi.sty}.
 ```
