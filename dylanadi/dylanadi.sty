@@ -525,6 +525,16 @@
   {.}%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+
+  \newtheoremstyle{dylanremarknonum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\small\color{white}}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{white}\sffamily\itshape}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
   
 \newtheoremstyle{dylanmini}%                % Name
   {0pt}%                                     % Space above
@@ -685,6 +695,16 @@
   {.}%                                    % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
+\newtheoremstyle{dylanremark}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\small\color{white}}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{white}\sffamily\itshape}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
   
 \newtheoremstyle{dylanmini}%                % Name
   {0pt}%                                     % Space above
@@ -848,6 +868,16 @@
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
   
+\newtheoremstyle{dylanremarknonum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\small}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{black}\sffamily\itshape}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  
 \newtheoremstyle{dylanmini}%                % Name
   {0pt}%                                     % Space above
   {2pt}%                                     % Space below
@@ -1008,6 +1038,16 @@
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
   
+\newtheoremstyle{dylanremarknonum}%                % Name
+  {0pt}%                                     % Space above
+  {2pt}%                                     % Space below
+  {\small}%                                     % Body font
+  {}%                                     % Indent amount
+  {\color{black}\sffamily\itshape}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+  {\thmname{#1}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+
 \newtheoremstyle{dylanmini}%                % Name
   {0pt}%                                     % Space above
   {2pt}%                                     % Space below
@@ -1333,6 +1373,20 @@ topline=false,
 bottomline=false,
 rightline=false,
 leftline=true]{remark}[theorem]{Remark}
+
+\theoremstyle{dylanremarknonum}
+\newmdtheoremenv[% settings
+backgroundcolor=black!70,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=white,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{remark*}[theorem]{Remark}
 
 % \theoremstyle{dylanremark}
 % \newmdtheoremenv[% settings
@@ -1732,6 +1786,20 @@ bottomline=false,
 rightline=false,
 leftline=true]{remark}[theorem]{Remark}
 
+\theoremstyle{dylanremarknonum}
+\newmdtheoremenv[% settings
+backgroundcolor=black!70,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=white,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{remark*}[theorem]{Remark}
+
 % \theoremstyle{dylanremark}
 % \newmdtheoremenv[% settings
 % backgroundcolor=black!70,
@@ -2130,6 +2198,20 @@ bottomline=false,
 rightline=false,
 leftline=true]{remark}[theorem]{Remark}
 
+\theoremstyle{dylanremarknonum}
+\newmdtheoremenv[% settings
+backgroundcolor=black!5,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=black,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{remark*}[theorem]{Remark}
+
 % \theoremstyle{dylanremark}
 % \newmdtheoremenv[% settings
 % backgroundcolor=Black!5,
@@ -2523,6 +2605,20 @@ topline=false,
 bottomline=false,
 rightline=false,
 leftline=true]{remark}[theorem]{Remark}
+
+\theoremstyle{dylanremarknonum}
+\newmdtheoremenv[% settings
+backgroundcolor=black!5,
+nobreak=true,
+innertopmargin=5pt,
+innerleftmargin=7pt,
+innerrightmargin=7pt,
+linecolor=black,
+linewidth=3pt,
+topline=false,
+bottomline=false,
+rightline=false,
+leftline=true]{remark*}[theorem]{Remark}
 
 % \theoremstyle{dylanremark}
 % \newmdtheoremenv[% settings
